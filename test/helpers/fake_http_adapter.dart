@@ -5,12 +5,31 @@ import 'package:dio/dio.dart';
 
 /// A stand-in for dio's real network layer in tests.
 ///
-/// Each request gets the next queued reply: either a response
-/// ([FakeHttpAdapter.reply]) or an error ([FakeHttpAdapter.fail]).
+/// Two modes:
+/// - **Queue:** each request gets the next queued reply, either a response
+///   ([reply]) or an error ([fail]).
+/// - **Handler:** set [handler] to answer each request from its path and
+///   headers (needed for parallel requests, whose order isn't fixed).
+///
 /// Every request is recorded in [requests].
 class FakeHttpAdapter implements HttpClientAdapter {
   final _replies = <_Reply>[];
   final requests = <RequestOptions>[];
+
+  /// Answers every request when set (queue mode is then ignored). Throw a
+  /// [DioException] from it to simulate a network failure.
+  Future<ResponseBody> Function(RequestOptions options)? handler;
+
+  /// A JSON response for [handler].
+  static ResponseBody json(int statusCode, Object body) {
+    return ResponseBody.fromString(
+      jsonEncode(body),
+      statusCode,
+      headers: {
+        Headers.contentTypeHeader: [Headers.jsonContentType],
+      },
+    );
+  }
 
   /// Queues a response. [json] is encoded as the body (omit it for no body).
   void reply(
@@ -44,6 +63,8 @@ class FakeHttpAdapter implements HttpClientAdapter {
     Future<void>? cancelFuture,
   ) async {
     requests.add(options);
+    final handler = this.handler;
+    if (handler != null) return handler(options);
     if (_replies.isEmpty) {
       throw StateError('FakeHttpAdapter: no reply queued for ${options.path}');
     }
