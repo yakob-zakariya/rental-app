@@ -66,7 +66,9 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
 
 - [ ] **A9 Home + status cards.** `GET /verification/status` + `GET /me`, one card per status
       (declined: "Try again" and "Request manual review" shown independently from `canRetry` /
-      `canRequestManualReview`; "Try again later" without a time when `canRetry` is false),
+      `canRequestManualReview`; when `canRetry` is false, "You can try again after HH:mm" from
+      `retryAvailableAt` in Africa/Addis_Ababa time, or "Try again later" if it is `null`; re-fetch
+      the status once that time passes),
       fallback text for unknown status / `reasonCode`, pull-to-refresh, refresh on app foreground.
       Widget tests for every status, the unknown values, and the declined-card combinations.
 - [ ] **A10 Didit SDK + verification flow.** Add `didit_sdk` (NFC disabled; confirm the API against
@@ -97,7 +99,7 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
 
 ## Later (not Phase 1) — see spec §7
 
-- Show the retry time once `rental-api` adds `retryAvailableAt` to `GET /verification/status`.
+- Ethiopian-clock times when Amharic is added.
 - Browser fallback via `verificationUrl`.
 - Record consent server-side (backend).
 - Legal review of the consent text before launch.

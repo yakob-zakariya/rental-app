@@ -100,8 +100,10 @@ report the mismatch so this spec gets fixed.
     (resumes the same session);
   - `approved` → verified badge with the verified name (from `GET /me`);
   - `declined` → message for `reasonCode`, then — independently, both can appear:
-    - "Try again" if `canRetry`; if `canRetry` is false, the text "Try again later" (no time yet —
-      see §7, `retryAvailableAt`);
+    - "Try again" if `canRetry`. If `canRetry` is false: "You can try again after HH:mm" when
+      `retryAvailableAt` is set (the timestamp shown in Africa/Addis_Ababa time, 24-hour), or
+      "Try again later" when it is `null`. When that moment passes, re-fetch the status — never
+      assume `canRetry` changed (hard rule 7);
     - "Request manual review" if `canRequestManualReview`.
 
     The app never decides between these itself (hard rule 7);
@@ -207,8 +209,8 @@ package version actually installed.
 
 ## 7. Later (not Phase 1)
 
-- **`retryAvailableAt`** on `GET /verification/status` (being added in `rental-api`). Once it
-  exists, the declined card's "Try again later" shows the time. Until then, no time is shown.
+- **Ethiopian clock:** when Amharic is added, consider showing times (e.g. "try again after …")
+  on the Ethiopian clock (12-hour, the day starting at 6:00 — 7:00 international is 1:00).
 - **Browser fallback:** opening `verificationUrl` in the browser if the SDK can't be used.
 - **Record consent server-side** (backend item): store that and when the user accepted the
   consent text.
