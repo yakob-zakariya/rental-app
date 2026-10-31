@@ -72,6 +72,8 @@ flutter doctor                      # check the toolchain
 flutter pub get                     # install packages
 flutter run --dart-define=API_BASE_URL=http://10.0.2.2:3000     # Android emulator
 flutter run --dart-define=API_BASE_URL=https://<tunnel-domain>  # real phone via ngrok
+                                    # (without API_BASE_URL the app shows a "Configuration error" screen)
+flutter build apk --debug --dart-define=API_BASE_URL=http://10.0.2.2:3000   # debug APK
 flutter test                        # all tests
 flutter analyze                     # lints
 dart format .                       # formatting

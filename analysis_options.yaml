@@ -1,0 +1,24 @@
+# Static analysis for `flutter analyze`.
+# https://dart.dev/tools/analysis
+
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+  language:
+    # Never let a value silently become `dynamic` (similar to `strict` in tsconfig).
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    # Catches a Future that is started but never awaited.
+    - unawaited_futures
+    # No calling methods on `dynamic` values (e.g. raw JSON) without a type check first.
+    - avoid_dynamic_calls
+    - prefer_final_locals
+    - always_declare_return_types
+    - prefer_single_quotes
