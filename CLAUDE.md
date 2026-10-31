@@ -128,8 +128,11 @@ dart format .                       # formatting
 - API calls live in repository classes under `data/`; screens never call `dio` directly.
 - Models are plain Dart classes with hand-written `fromJson`. Dates of birth stay `YYYY-MM-DD`
   strings; timestamps are parsed as UTC and shown in Africa/Addis_Ababa time.
-- Every API failure becomes an `ApiError(code, statusCode, retryAfterSeconds?)`; network failures
-  become a distinct `NETWORK_ERROR` the UI can show as "check your connection".
+- Every API failure becomes an `ApiError(code, statusCode?, retryAfterSeconds?, attemptsRemaining?,
+  manualReviewAvailable?)` (`lib/core/api/`); compare codes with the `ApiErrorCode` constants.
+  Network failures become a distinct `NETWORK_ERROR` the UI can show as "check your connection";
+  a response without a readable `code` becomes `UNKNOWN_ERROR` (generic fallback text).
+- Repositories call the API through `ApiClient` (`apiClientProvider`), never `dio` directly.
 - Show loading states on every button that calls the API, and disable it while loading.
 
 ## How to work in this repo

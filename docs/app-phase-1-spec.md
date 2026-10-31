@@ -47,7 +47,11 @@ report the mismatch so this spec gets fixed.
   No extra flag.
 - **Errors:** every non-2xx response is converted into `ApiError(code, statusCode, retryAfterSeconds?)`
   using the body's `code` (and `retryAfterSeconds` or the `Retry-After` header when present).
-  Connection failures and timeouts become `ApiError('NETWORK_ERROR')`.
+  `attemptsRemaining` and `manualReviewAvailable` are read too when present.
+  Connection failures and timeouts become `ApiError('NETWORK_ERROR')`; a response without a
+  readable `code` (e.g. an ngrok or proxy error page) becomes `ApiError('UNKNOWN_ERROR')`.
+  `VALIDATION_FAILED` carries the code only; nothing is logged (if logging is added later: field
+  names only, debug builds only).
 - **Unknown values never crash the app.** An unknown error `code`, verification `status` or
   `reasonCode` is shown with generic fallback text from the ARB file.
 - **Auth interceptor:**
