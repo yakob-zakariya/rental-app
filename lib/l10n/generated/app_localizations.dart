@@ -100,7 +100,7 @@ abstract class AppLocalizations {
   /// **'Rental'**
   String get appTitle;
 
-  /// Title of the sign-in screen (placeholder until A6).
+  /// Title of the sign-in (phone entry) screen.
   ///
   /// In en, this message translates to:
   /// **'Sign in'**
@@ -112,17 +112,101 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get homeTitle;
 
-  /// Temporary button on the sign-in placeholder that opens home. Removed in A6.
-  ///
-  /// In en, this message translates to:
-  /// **'Go to home'**
-  String get placeholderGoToHome;
-
   /// Temporary button on the home placeholder that returns to sign-in. Removed in A8.
   ///
   /// In en, this message translates to:
   /// **'Back to sign in'**
   String get placeholderBackToSignIn;
+
+  /// Headline on the phone entry screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number'**
+  String get phoneEntryHeadline;
+
+  /// Explains what happens after tapping 'Send code'.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll send you a 6-digit code by SMS.'**
+  String get phoneEntryBody;
+
+  /// Label of the phone number field.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get phoneEntryFieldLabel;
+
+  /// Pattern shown in the empty phone field (not a real number).
+  ///
+  /// In en, this message translates to:
+  /// **'09XX XXX XXX'**
+  String get phoneEntryFieldHint;
+
+  /// Button that asks the API to send the SMS code.
+  ///
+  /// In en, this message translates to:
+  /// **'Send code'**
+  String get phoneEntrySendCode;
+
+  /// Screen-reader label of the spinner while the code is being requested.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending the code…'**
+  String get phoneEntrySending;
+
+  /// Error under the field when it is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number.'**
+  String get phoneEntryEmpty;
+
+  /// Error when the API rejects the phone number (INVALID_PHONE).
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an Ethiopian mobile number.'**
+  String get errorInvalidPhone;
+
+  /// Rate-limit error when no waiting time is known.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please try again later.'**
+  String get errorTooManyAttemptsLater;
+
+  /// Error when the SMS could not be sent (SMS_SEND_FAILED).
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t send the SMS. Please try again.'**
+  String get errorSmsSendFailed;
+
+  /// Error when the server can't be reached (no connection or timeout).
+  ///
+  /// In en, this message translates to:
+  /// **'No connection. Check your internet and try again.'**
+  String get errorNetwork;
+
+  /// Fallback error for unexpected or unknown errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get errorGeneric;
+
+  /// Title of the SMS code screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the code'**
+  String get otpTitle;
+
+  /// Rate-limit error with the waiting time, rounded up to whole minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes, plural, =1{Too many attempts. Try again in 1 minute.} other{Too many attempts. Try again in {minutes} minutes.}}'**
+  String errorTooManyAttemptsMinutes(int minutes);
+
+  /// Placeholder text on the code screen (until A7). {phone} is the number as the user typed it.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a code to {phone}.'**
+  String otpPlaceholderSentTo(String phone);
 }
 
 class _AppLocalizationsDelegate

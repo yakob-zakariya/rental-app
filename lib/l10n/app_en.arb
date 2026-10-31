@@ -6,18 +6,84 @@
   },
   "signInTitle": "Sign in",
   "@signInTitle": {
-    "description": "Title of the sign-in screen (placeholder until A6)."
+    "description": "Title of the sign-in (phone entry) screen."
   },
   "homeTitle": "Home",
   "@homeTitle": {
     "description": "Title of the home screen (placeholder until A9)."
   },
-  "placeholderGoToHome": "Go to home",
-  "@placeholderGoToHome": {
-    "description": "Temporary button on the sign-in placeholder that opens home. Removed in A6."
-  },
   "placeholderBackToSignIn": "Back to sign in",
   "@placeholderBackToSignIn": {
     "description": "Temporary button on the home placeholder that returns to sign-in. Removed in A8."
+  },
+  "phoneEntryHeadline": "Enter your phone number",
+  "@phoneEntryHeadline": {
+    "description": "Headline on the phone entry screen."
+  },
+  "phoneEntryBody": "We'll send you a 6-digit code by SMS.",
+  "@phoneEntryBody": {
+    "description": "Explains what happens after tapping 'Send code'."
+  },
+  "phoneEntryFieldLabel": "Phone number",
+  "@phoneEntryFieldLabel": {
+    "description": "Label of the phone number field."
+  },
+  "phoneEntryFieldHint": "09XX XXX XXX",
+  "@phoneEntryFieldHint": {
+    "description": "Pattern shown in the empty phone field (not a real number)."
+  },
+  "phoneEntrySendCode": "Send code",
+  "@phoneEntrySendCode": {
+    "description": "Button that asks the API to send the SMS code."
+  },
+  "phoneEntrySending": "Sending the code…",
+  "@phoneEntrySending": {
+    "description": "Screen-reader label of the spinner while the code is being requested."
+  },
+  "phoneEntryEmpty": "Enter your phone number.",
+  "@phoneEntryEmpty": {
+    "description": "Error under the field when it is empty."
+  },
+  "errorInvalidPhone": "Enter an Ethiopian mobile number.",
+  "@errorInvalidPhone": {
+    "description": "Error when the API rejects the phone number (INVALID_PHONE)."
+  },
+  "errorTooManyAttemptsLater": "Too many attempts. Please try again later.",
+  "@errorTooManyAttemptsLater": {
+    "description": "Rate-limit error when no waiting time is known."
+  },
+  "errorSmsSendFailed": "We couldn't send the SMS. Please try again.",
+  "@errorSmsSendFailed": {
+    "description": "Error when the SMS could not be sent (SMS_SEND_FAILED)."
+  },
+  "errorNetwork": "No connection. Check your internet and try again.",
+  "@errorNetwork": {
+    "description": "Error when the server can't be reached (no connection or timeout)."
+  },
+  "errorGeneric": "Something went wrong. Please try again.",
+  "@errorGeneric": {
+    "description": "Fallback error for unexpected or unknown errors."
+  },
+  "otpTitle": "Enter the code",
+  "@otpTitle": {
+    "description": "Title of the SMS code screen."
+  },
+  "errorTooManyAttemptsMinutes": "{minutes, plural, =1{Too many attempts. Try again in 1 minute.} other{Too many attempts. Try again in {minutes} minutes.}}",
+  "@errorTooManyAttemptsMinutes": {
+    "description": "Rate-limit error with the waiting time, rounded up to whole minutes.",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "otpPlaceholderSentTo": "We sent a code to {phone}.",
+  "@otpPlaceholderSentTo": {
+    "description": "Placeholder text on the code screen (until A7). {phone} is the number as the user typed it.",
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
   }
 }
