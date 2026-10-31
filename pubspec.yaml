@@ -41,6 +41,8 @@ dependencies:
     sdk: flutter
   dio: ^5.11.1
   flutter_secure_storage: ^11.2.0
+  device_info_plus: ^13.3.0
+  clock: ^1.1.2
 
 dev_dependencies:
   flutter_test:

@@ -85,10 +85,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text(l10n.otpTitle), findsOneWidget);
-    expect(
-      find.text(l10n.otpPlaceholderSentTo('0911 234 567')),
-      findsOneWidget,
-    );
+    expect(find.text(l10n.otpSentTo('0911 234 567')), findsOneWidget);
     await expectAccessible(tester);
 
     // Android's back button.

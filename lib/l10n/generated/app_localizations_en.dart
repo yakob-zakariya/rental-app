@@ -75,7 +75,58 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String otpPlaceholderSentTo(String phone) {
-    return 'We sent a code to $phone.';
+  String get otpFieldLabel => '6-digit code';
+
+  @override
+  String get otpVerify => 'Verify';
+
+  @override
+  String get otpVerifying => 'Checking the code…';
+
+  @override
+  String get otpCodeExpired => 'This code has expired.';
+
+  @override
+  String get otpSendNewCode => 'Send a new code';
+
+  @override
+  String get otpSendingNewCode => 'Sending a new code…';
+
+  @override
+  String get otpNewCodeSent => 'We sent you a new code.';
+
+  @override
+  String get otpWrongCode => 'Wrong code. Please try again.';
+
+  @override
+  String get otpExpiredOrUsed => 'This code has expired or was already used.';
+
+  @override
+  String get otpAttemptsExceeded => 'Too many wrong attempts.';
+
+  @override
+  String get accountUnavailableMessage =>
+      'This account is unavailable. Please contact support.';
+
+  @override
+  String otpSentTo(String phone) {
+    return 'We sent a 6-digit code to $phone.';
+  }
+
+  @override
+  String otpExpiresIn(String time) {
+    return 'Code expires in $time';
+  }
+
+  @override
+  String otpWrongCodeAttemptsLeft(int attempts) {
+    String _temp0 = intl.Intl.pluralLogic(
+      attempts,
+      locale: localeName,
+      other: 'Wrong code. $attempts attempts left.',
+      one: 'Wrong code. 1 attempt left.',
+      zero: 'Wrong code. No attempts left.',
+    );
+    return '$_temp0';
   }
 }

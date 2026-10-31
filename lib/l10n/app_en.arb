@@ -77,12 +77,75 @@
       }
     }
   },
-  "otpPlaceholderSentTo": "We sent a code to {phone}.",
-  "@otpPlaceholderSentTo": {
-    "description": "Placeholder text on the code screen (until A7). {phone} is the number as the user typed it.",
+  "otpFieldLabel": "6-digit code",
+  "@otpFieldLabel": {
+    "description": "Label of the SMS code field."
+  },
+  "otpVerify": "Verify",
+  "@otpVerify": {
+    "description": "Button that checks the SMS code."
+  },
+  "otpVerifying": "Checking the code…",
+  "@otpVerifying": {
+    "description": "Screen-reader label of the spinner while the code is checked."
+  },
+  "otpCodeExpired": "This code has expired.",
+  "@otpCodeExpired": {
+    "description": "Shown when the countdown reaches zero."
+  },
+  "otpSendNewCode": "Send a new code",
+  "@otpSendNewCode": {
+    "description": "Button that requests a new SMS code."
+  },
+  "otpSendingNewCode": "Sending a new code…",
+  "@otpSendingNewCode": {
+    "description": "Screen-reader label of the spinner while a new code is requested."
+  },
+  "otpNewCodeSent": "We sent you a new code.",
+  "@otpNewCodeSent": {
+    "description": "Confirmation after a new code was requested."
+  },
+  "otpWrongCode": "Wrong code. Please try again.",
+  "@otpWrongCode": {
+    "description": "OTP_INVALID without a number of attempts left."
+  },
+  "otpExpiredOrUsed": "This code has expired or was already used.",
+  "@otpExpiredOrUsed": {
+    "description": "OTP_EXPIRED."
+  },
+  "otpAttemptsExceeded": "Too many wrong attempts.",
+  "@otpAttemptsExceeded": {
+    "description": "OTP_ATTEMPTS_EXCEEDED: the user must ask for a new code."
+  },
+  "accountUnavailableMessage": "This account is unavailable. Please contact support.",
+  "@accountUnavailableMessage": {
+    "description": "Neutral message for an unavailable (blocked) account. Never give a reason."
+  },
+  "otpSentTo": "We sent a 6-digit code to {phone}.",
+  "@otpSentTo": {
+    "description": "Under the code screen's title. {phone} is the number as the user typed it.",
     "placeholders": {
       "phone": {
         "type": "String"
+      }
+    }
+  },
+  "otpExpiresIn": "Code expires in {time}",
+  "@otpExpiresIn": {
+    "description": "Countdown on the code screen. {time} is minutes:seconds, e.g. 4:59.",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "4:59"
+      }
+    }
+  },
+  "otpWrongCodeAttemptsLeft": "{attempts, plural, =0{Wrong code. No attempts left.} =1{Wrong code. 1 attempt left.} other{Wrong code. {attempts} attempts left.}}",
+  "@otpWrongCodeAttemptsLeft": {
+    "description": "OTP_INVALID with the number of attempts left.",
+    "placeholders": {
+      "attempts": {
+        "type": "int"
       }
     }
   }

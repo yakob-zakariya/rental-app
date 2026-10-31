@@ -202,11 +202,89 @@ abstract class AppLocalizations {
   /// **'{minutes, plural, =1{Too many attempts. Try again in 1 minute.} other{Too many attempts. Try again in {minutes} minutes.}}'**
   String errorTooManyAttemptsMinutes(int minutes);
 
-  /// Placeholder text on the code screen (until A7). {phone} is the number as the user typed it.
+  /// Label of the SMS code field.
   ///
   /// In en, this message translates to:
-  /// **'We sent a code to {phone}.'**
-  String otpPlaceholderSentTo(String phone);
+  /// **'6-digit code'**
+  String get otpFieldLabel;
+
+  /// Button that checks the SMS code.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get otpVerify;
+
+  /// Screen-reader label of the spinner while the code is checked.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking the code…'**
+  String get otpVerifying;
+
+  /// Shown when the countdown reaches zero.
+  ///
+  /// In en, this message translates to:
+  /// **'This code has expired.'**
+  String get otpCodeExpired;
+
+  /// Button that requests a new SMS code.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a new code'**
+  String get otpSendNewCode;
+
+  /// Screen-reader label of the spinner while a new code is requested.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending a new code…'**
+  String get otpSendingNewCode;
+
+  /// Confirmation after a new code was requested.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent you a new code.'**
+  String get otpNewCodeSent;
+
+  /// OTP_INVALID without a number of attempts left.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong code. Please try again.'**
+  String get otpWrongCode;
+
+  /// OTP_EXPIRED.
+  ///
+  /// In en, this message translates to:
+  /// **'This code has expired or was already used.'**
+  String get otpExpiredOrUsed;
+
+  /// OTP_ATTEMPTS_EXCEEDED: the user must ask for a new code.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many wrong attempts.'**
+  String get otpAttemptsExceeded;
+
+  /// Neutral message for an unavailable (blocked) account. Never give a reason.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is unavailable. Please contact support.'**
+  String get accountUnavailableMessage;
+
+  /// Under the code screen's title. {phone} is the number as the user typed it.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a 6-digit code to {phone}.'**
+  String otpSentTo(String phone);
+
+  /// Countdown on the code screen. {time} is minutes:seconds, e.g. 4:59.
+  ///
+  /// In en, this message translates to:
+  /// **'Code expires in {time}'**
+  String otpExpiresIn(String time);
+
+  /// OTP_INVALID with the number of attempts left.
+  ///
+  /// In en, this message translates to:
+  /// **'{attempts, plural, =0{Wrong code. No attempts left.} =1{Wrong code. 1 attempt left.} other{Wrong code. {attempts} attempts left.}}'**
+  String otpWrongCodeAttemptsLeft(int attempts);
 }
 
 class _AppLocalizationsDelegate

@@ -218,6 +218,8 @@ package version actually installed.
 
 ## 7. Later (not Phase 1)
 
+- **Android SMS autofill** (with a real SMS provider): the SMS User Consent API needs no SMS text
+  change; the SMS Retriever API needs the app hash in the message (a `rental-api` change).
 - **Ethiopian clock:** when Amharic is added, consider showing times (e.g. "try again after …")
   on the Ethiopian clock (12-hour, the day starting at 6:00 — 7:00 international is 1:00).
 - **Browser fallback:** opening `verificationUrl` in the browser if the SDK can't be used.
