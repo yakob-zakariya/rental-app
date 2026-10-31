@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark mode on, Android 12+ (API 31). Android 12 always shows its own
+         system splash screen (the launcher icon on a background); these set
+         that background to the app's colour instead of white/black. -->
+    <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:windowSplashScreenBackground">@color/launch_background</item>
+        <!-- No android:windowSplashScreenAnimatedIcon: Android uses the app's
+             launcher icon, which is what we want until there's a brand. -->
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowBackground">@color/launch_background</item>
+    </style>
+</resources>

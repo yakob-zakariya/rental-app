@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The light theme's background (colorScheme.surface from seed #0B6E69,
+         lib/app/theme.dart). Shown by Android before Flutter's first frame.
+         test/app/launch_colors_test.dart keeps it in sync with the theme. -->
+    <color name="launch_background">#F4FBF9</color>
+</resources>

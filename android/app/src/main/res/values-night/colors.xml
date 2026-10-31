@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The dark theme's background (colorScheme.surface), used when the
+         phone is in dark mode. Kept in sync by test/app/launch_colors_test.dart. -->
+    <color name="launch_background">#0E1514</color>
+</resources>
