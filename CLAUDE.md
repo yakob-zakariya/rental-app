@@ -33,7 +33,8 @@ push notifications are **out of scope**. If a task seems to need them, stop and 
 ## Stack
 
 - **Flutter** (stable channel), **Dart 3.11+** (required by the Didit SDK)
-- **Target:** Android first (the developer uses Ubuntu; iOS builds need a Mac, later)
+- **Target:** Android first, tested on a physical phone over USB (no emulator). The developer uses
+  Ubuntu; iOS builds need a Mac, later
 - **State management:** Riverpod (`flutter_riverpod`), hand-written providers, no code generation
 - **HTTP:** `dio`
 - **Secure storage:** `flutter_secure_storage`
@@ -70,10 +71,16 @@ Fill these in as the project grows, and keep them accurate.
 ```
 flutter doctor                      # check the toolchain
 flutter pub get                     # install packages
-flutter run --dart-define=API_BASE_URL=http://10.0.2.2:3000     # Android emulator
-flutter run --dart-define=API_BASE_URL=https://<tunnel-domain>  # real phone via ngrok
+# Daily run: physical Android phone over USB (no emulator — it crashes the dev PC).
+adb reverse tcp:3000 tcp:3000       # phone's localhost:3000 → this computer's :3000
+                                    # (re-run after every reconnect of the phone)
+flutter run --dart-define=API_BASE_URL=http://localhost:3000
+# Wireless alternative: through the ngrok tunnel (HTTPS).
+flutter run --dart-define=API_BASE_URL=https://<tunnel-domain>
                                     # (without API_BASE_URL the app shows a "Configuration error" screen)
-flutter build apk --debug --dart-define=API_BASE_URL=http://10.0.2.2:3000   # debug APK
+                                    # Didit webhooks always reach the backend through the ngrok tunnel,
+                                    # so keep it running during verification tests, even over USB.
+flutter build apk --debug --dart-define=API_BASE_URL=http://localhost:3000   # debug APK
 flutter test                        # all tests
 flutter analyze                     # lints
 dart format .                       # formatting

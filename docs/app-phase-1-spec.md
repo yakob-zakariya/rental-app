@@ -24,8 +24,11 @@ report the mismatch so this spec gets fixed.
 - **Config:** `API_BASE_URL` from `--dart-define`. The app refuses to start (clear error screen in
   debug) if it's missing.
 - **Network security (Android):** release builds are HTTPS-only. A **debug-only** network security
-  config allows cleartext HTTP to `10.0.2.2` and `localhost` (the emulator talking to the local
-  backend). It must never apply to release builds.
+  config allows cleartext HTTP to `localhost` only (the phone over USB, reaching the local backend
+  through `adb reverse tcp:3000 tcp:3000`). It must never apply to release builds.
+- **Devices:** all testing is on a physical Android phone (no emulator). Daily: USB with
+  `adb reverse` and `API_BASE_URL=http://localhost:3000`. Wireless: the ngrok tunnel URL. Didit
+  webhooks always reach the backend through the ngrok tunnel.
 - **Router (`go_router`)** with a redirect based on the auth state, which has four values:
   - `checking` → splash (startup, while tokens are read and `GET /me` runs);
   - `signedOut` → `/sign-in`;
@@ -187,8 +190,8 @@ package version actually installed.
   declined card with every `canRetry` × `canRequestManualReview` combination), phone entry errors,
   OTP states, startup "Can't connect — Retry", the "Checking…" screen's polling interval change
   (5 s → 30 s) and leaving it, each SDK result (completed / cancelled / failed).
-- **Manual (see tasks A12–A13):** emulator against local backend; real phone through the tunnel;
-  finally the live Didit test with a real Fayda card.
+- **Manual:** the phone over USB against the local backend (A7–A11); the phone wirelessly through
+  the tunnel (A12); finally the live Didit test with a real Fayda card (A13).
 
 ## 6. Real-phone and live-Didit test (from the backend's T2.9)
 

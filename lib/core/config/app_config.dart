@@ -1,11 +1,11 @@
 /// App configuration that is baked in at build time with `--dart-define`.
 ///
 /// Run the app with, for example:
-///   flutter run --dart-define=API_BASE_URL=http://10.0.2.2:3000
+///   flutter run --dart-define=API_BASE_URL=http://localhost:3000
 class AppConfig {
   const AppConfig({required this.apiBaseUrl});
 
-  /// The rental-api base URL, e.g. `http://10.0.2.2:3000`.
+  /// The rental-api base URL, e.g. `http://localhost:3000`.
   final Uri apiBaseUrl;
 
   /// The raw value passed with `--dart-define=API_BASE_URL=...`.

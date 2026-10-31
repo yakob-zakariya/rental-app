@@ -27,10 +27,15 @@ class ConfigErrorApp extends StatelessWidget {
                 const SizedBox(height: 16),
                 Text(message),
                 const SizedBox(height: 16),
-                const Text('Start the app with, for example:'),
+                const Text('Connect the phone by USB and start the app with:'),
                 const SizedBox(height: 8),
                 const SelectableText(
-                  'flutter run --dart-define=API_BASE_URL=http://10.0.2.2:3000',
+                  'adb reverse tcp:3000 tcp:3000',
+                  style: TextStyle(fontFamily: 'monospace'),
+                ),
+                const SizedBox(height: 8),
+                const SelectableText(
+                  'flutter run --dart-define=API_BASE_URL=http://localhost:3000',
                   style: TextStyle(fontFamily: 'monospace'),
                 ),
               ],

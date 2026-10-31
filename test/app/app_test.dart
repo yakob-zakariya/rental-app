@@ -7,13 +7,13 @@ void main() {
   testWidgets('RentalApp shows Hello and the base URL in debug', (
     tester,
   ) async {
-    final config = AppConfig.parse('http://10.0.2.2:3000');
+    final config = AppConfig.parse('http://localhost:3000');
 
     await tester.pumpWidget(RentalApp(config: config));
 
     expect(find.text('Hello'), findsOneWidget);
     // Tests run in debug mode, so the base URL is visible.
-    expect(find.text('http://10.0.2.2:3000'), findsOneWidget);
+    expect(find.text('http://localhost:3000'), findsOneWidget);
   });
 
   testWidgets('ConfigErrorApp shows the error and how to fix it', (
@@ -26,7 +26,7 @@ void main() {
     expect(find.text('Configuration error'), findsOneWidget);
     expect(find.text('API_BASE_URL is missing.'), findsOneWidget);
     expect(
-      find.text('flutter run --dart-define=API_BASE_URL=http://10.0.2.2:3000'),
+      find.text('flutter run --dart-define=API_BASE_URL=http://localhost:3000'),
       findsOneWidget,
     );
     expect(find.text('Hello'), findsNothing);

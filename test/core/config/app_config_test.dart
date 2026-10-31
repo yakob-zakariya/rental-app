@@ -3,11 +3,11 @@ import 'package:rental_app/core/config/app_config.dart';
 
 void main() {
   group('AppConfig.parse', () {
-    test('accepts an http URL (emulator → local backend)', () {
-      final config = AppConfig.parse('http://10.0.2.2:3000');
+    test('accepts an http URL (phone over USB → local backend)', () {
+      final config = AppConfig.parse('http://localhost:3000');
 
       expect(config.apiBaseUrl.scheme, 'http');
-      expect(config.apiBaseUrl.host, '10.0.2.2');
+      expect(config.apiBaseUrl.host, 'localhost');
       expect(config.apiBaseUrl.port, 3000);
     });
 
@@ -30,7 +30,7 @@ void main() {
 
     test('rejects a value without a scheme', () {
       expect(
-        () => AppConfig.parse('10.0.2.2:3000'),
+        () => AppConfig.parse('localhost:3000'),
         throwsA(isA<AppConfigException>()),
       );
     });

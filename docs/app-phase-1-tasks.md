@@ -10,19 +10,18 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
 
 ## Setup (you do this, with Claude Code's help if stuck)
 
-- [ ] **A0 Toolchain.** Install Flutter (stable) and Android Studio on Ubuntu; create an Android
-      emulator; enable USB debugging on your Android phone.
+- [ ] **A0 Toolchain.** Install Flutter (stable) and Android Studio on Ubuntu; enable USB debugging
+      on your Android phone. (No emulator: it crashes the dev PC. All testing is on the phone.)
       *Done when:* `flutter doctor` shows no errors for Flutter, Android toolchain and Android Studio,
-      `flutter --version` shows Dart 3.11+, and the default counter app runs on both the emulator
-      and your phone.
+      `flutter --version` shows Dart 3.11+, and the default counter app runs on your phone over USB.
 
 ## Foundation
 
 - [ ] **A1 Project + structure.** `flutter create --org com.yakobzakariya --project-name rental_app .`
       (in this repo), folder layout from `CLAUDE.md`, strict lints (`flutter_lints` + a few extra
       rules), `API_BASE_URL` config via `--dart-define` with a clear error if missing, a
-      **debug-only** Android network security config allowing cleartext to `10.0.2.2` and
-      `localhost` (release stays HTTPS-only), `.gitignore`.
+      **debug-only** Android network security config allowing cleartext to `localhost` only
+      (release stays HTTPS-only), `.gitignore`.
       *Done when:* the app starts showing "Hello" with the configured base URL in debug, and
       `flutter analyze` is clean.
 - [ ] **A2 App shell.** Material 3 theme, `gen-l10n` with `app_en.arb`, `go_router` with
@@ -51,8 +50,9 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
 - [ ] **A6 Phone entry screen.** Field, loading state, error messages per code. Widget tests.
 - [ ] **A7 OTP screen + sign-in.** 6-digit input, countdown, resend, verify with `deviceName` from
       `device_info_plus` (phone model), store tokens, go home. Widget tests.
-      *Done when:* you sign in on the emulator against your local backend (code from the backend
-      console).
+      *Done when:* you sign in on your phone over USB against your local backend
+      (`adb reverse tcp:3000 tcp:3000`, `API_BASE_URL=http://localhost:3000`; code from the
+      backend console).
 - [ ] **A8 Startup routing + sign-out.** Auth states `checking` / `signedOut` / `signedIn` /
       `accountUnavailable`, splash logic from spec 3.1 (including the "Can't connect — Retry" state,
       which never signs out), router redirect, account-unavailable screen with "Back to sign in",
@@ -75,15 +75,17 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
       cancelled → home, failed → home with message), "Checking…" polling screen (5 s for the first
       minute, then 30 s, while open, plus on foreground), manual-review request (all four errors;
       response is the full status object).
-      *Done when:* on the emulator with the **sandbox** backend, you complete a flow and the home
-      screen shows the result.
+      *Done when:* on your phone over USB with the **sandbox** backend, you complete a flow and the
+      home screen shows the result. Keep the ngrok tunnel running: Didit's webhooks reach the
+      backend through it (without it, only the 5-minute polling job delivers the decision).
 - [ ] **A11 Profile / settings.** Phone, status, verified name/DOB (read-only, DOB exactly as
       received), language choice via `PATCH /me`, sign-out.
 
 ## Real world
 
-- [ ] **A12 Real phone through the tunnel (sandbox).** Run on your phone with
-      `--dart-define=API_BASE_URL=https://<tunnel-domain>`. Full flow with the sandbox.
+- [ ] **A12 Phone through the tunnel, wireless (sandbox).** Unplug the USB cable and run with
+      `--dart-define=API_BASE_URL=https://<tunnel-domain>` (HTTPS, the ngrok header, a real mobile
+      network). Full flow with the sandbox.
       Note anything awkward on a real phone (keyboard covering fields, slow network, small screen).
 - [ ] **A13 Live Didit test with your real Fayda card** (the backend's T2.9). Set up the live Didit
       app first in `rental-api` (workflow restricted like the sandbox, webhook destination, live keys
