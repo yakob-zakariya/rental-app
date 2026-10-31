@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'theme.dart';
+
 /// Shown instead of the app when `API_BASE_URL` is missing or invalid.
 ///
 /// This is a developer-facing screen: a correctly built app never shows it.
@@ -13,6 +15,8 @@ class ConfigErrorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: buildLightTheme(),
+      darkTheme: buildDarkTheme(),
       home: Scaffold(
         body: SafeArea(
           child: Padding(

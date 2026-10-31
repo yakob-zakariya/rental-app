@@ -34,8 +34,10 @@ report the mismatch so this spec gets fixed.
   - `signedOut` → `/sign-in`;
   - `signedIn` → `/home`;
   - `accountUnavailable` → the neutral account-unavailable screen.
-- **Theme:** one simple Material 3 theme. Large touch targets and readable text; many users have
-  small or older phones.
+- **Theme:** Material 3, light and dark from one seed (`#0B6E69`), following the phone's
+  setting; bundled Noto Sans + Noto Sans Ethiopic; 48 px tap targets (52 px main buttons); WCAG AA
+  contrast in both themes. Calm and readable: many users have small or older phones. Full rules:
+  the Design section in `CLAUDE.md`.
 - **Translations:** `gen-l10n` with `app_en.arb`. All strings, including error messages and
   fallback texts, come from it.
 

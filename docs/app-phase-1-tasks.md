@@ -24,9 +24,13 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
       (release stays HTTPS-only), `.gitignore`.
       *Done when:* the app starts showing "Hello" with the configured base URL in debug, and
       `flutter analyze` is clean.
-- [ ] **A2 App shell.** Material 3 theme, `gen-l10n` with `app_en.arb`, `go_router` with
-      placeholder sign-in and home screens, Riverpod `ProviderScope`.
-      *Done when:* you can navigate between the two placeholders, and all text comes from the ARB file.
+- [ ] **A2 App shell.** Material 3 light + dark themes (Design section in `CLAUDE.md`: seed
+      `#0B6E69`, bundled Noto Sans + Noto Sans Ethiopic with their OFL licences, 16 px cards,
+      48/52 px tap targets), `gen-l10n` with `app_en.arb`, `go_router` with placeholder sign-in and
+      home screens, Riverpod `ProviderScope`.
+      *Done when:* you can navigate between the two placeholders, all text comes from the ARB file,
+      the app follows the phone's light/dark setting, and the shell's widget tests pass in both
+      themes (contrast and tap-target checks included).
 
 ## API layer
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../app/design_tokens.dart';
 import '../../../app/router.dart';
 import '../../../core/config/app_config_provider.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -19,7 +20,7 @@ class SignInScreen extends ConsumerWidget {
       appBar: AppBar(title: Text(l10n.signInTitle)),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(AppSpacing.lg),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -29,7 +30,7 @@ class SignInScreen extends ConsumerWidget {
               ),
               // Debug builds only: lets you check which backend this build uses.
               if (kDebugMode) ...[
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.lg),
                 Text(ref.watch(appConfigProvider).apiBaseUrl.toString()),
               ],
             ],

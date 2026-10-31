@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rental_app/app/app.dart';
+import 'package:rental_app/app/theme.dart';
 import 'package:rental_app/core/config/app_config.dart';
 import 'package:rental_app/core/config/app_config_provider.dart';
 import 'package:rental_app/l10n/generated/app_localizations.dart';
@@ -11,12 +12,37 @@ import 'package:rental_app/l10n/generated/app_localizations.dart';
 /// The config tests use unless they pass their own.
 final testConfig = AppConfig.parse('http://localhost:3000');
 
+/// Runs a widget test once with the phone in light mode and once in dark mode
+/// (the Design rule: every screen must look right in both). Use with
+/// `testWidgets(..., variant: brightnessVariant)` and read
+/// `brightnessVariant.currentValue!`.
+final brightnessVariant = ValueVariant<Brightness>({
+  Brightness.light,
+  Brightness.dark,
+});
+
+/// Flutter's built-in accessibility checks: 48 px tap targets (Android),
+/// labelled tap targets, and WCAG AA text contrast.
+Future<void> expectAccessible(WidgetTester tester) async {
+  await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+  await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
+  await expectLater(tester, meetsGuideline(textContrastGuideline));
+}
+
 extension PumpApp on WidgetTester {
+  /// Sets the phone's light/dark setting for this test (reset afterwards).
+  void setBrightness(Brightness brightness) {
+    platformDispatcher.platformBrightnessTestValue = brightness;
+    addTearDown(platformDispatcher.clearPlatformBrightnessTestValue);
+  }
+
   /// Pumps the whole app (router included) with test overrides.
   Future<void> pumpRentalApp({
     AppConfig? config,
     List<Override> overrides = const [],
+    Brightness brightness = Brightness.light,
   }) async {
+    setBrightness(brightness);
     await pumpWidget(
       ProviderScope(
         overrides: [
@@ -34,7 +60,9 @@ extension PumpApp on WidgetTester {
     Widget screen, {
     AppConfig? config,
     List<Override> overrides = const [],
+    Brightness brightness = Brightness.light,
   }) async {
+    setBrightness(brightness);
     await pumpWidget(
       ProviderScope(
         overrides: [
@@ -42,6 +70,8 @@ extension PumpApp on WidgetTester {
           ...overrides,
         ],
         child: MaterialApp(
+          theme: buildLightTheme(),
+          darkTheme: buildDarkTheme(),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           home: screen,

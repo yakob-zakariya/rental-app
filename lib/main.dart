@@ -3,11 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app/app.dart';
 import 'app/config_error_app.dart';
+import 'app/licenses.dart';
 import 'core/config/app_config.dart';
 import 'core/config/app_config_provider.dart';
 
 /// The entry point, like `main.ts` in NestJS: it runs once when the app starts.
 void main() {
+  registerFontLicenses();
+
   final AppConfig config;
   try {
     config = AppConfig.fromEnvironment();

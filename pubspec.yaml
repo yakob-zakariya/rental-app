@@ -60,6 +60,32 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  # Font licences (SIL OFL 1.1), shown on the licences page (lib/app/licenses.dart).
+  assets:
+    - assets/fonts/NotoSans-OFL.txt
+    - assets/fonts/NotoSansEthiopic-OFL.txt
+
+  # Bundled fonts (see the Design section in CLAUDE.md). Static weights 400–700.
+  fonts:
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSans-Regular.ttf
+        - asset: assets/fonts/NotoSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/NotoSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/NotoSans-Bold.ttf
+          weight: 700
+    - family: NotoSansEthiopic
+      fonts:
+        - asset: assets/fonts/NotoSansEthiopic-Regular.ttf
+        - asset: assets/fonts/NotoSansEthiopic-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/NotoSansEthiopic-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/NotoSansEthiopic-Bold.ttf
+          weight: 700
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
