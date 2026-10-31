@@ -293,7 +293,7 @@ void main() {
       }, variant: brightnessVariant);
     }
 
-    testWidgets('ACCOUNT_UNAVAILABLE shows only the neutral message', (
+    testWidgets('ACCOUNT_UNAVAILABLE opens the account-unavailable screen', (
       tester,
     ) async {
       verifyFails(const ApiError('ACCOUNT_UNAVAILABLE', statusCode: 403));
@@ -303,9 +303,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text(l10n.accountUnavailableMessage), findsOneWidget);
+      expect(find.text(l10n.accountUnavailableBackToSignIn), findsOneWidget);
       expect(codeField(), findsNothing);
-      expect(find.byType(FilledButton), findsNothing);
-      expect(find.byType(OutlinedButton), findsNothing);
       expect(await tokens.read(), isNull);
       await expectAccessible(tester);
     }, variant: brightnessVariant);

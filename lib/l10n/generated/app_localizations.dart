@@ -106,17 +106,11 @@ abstract class AppLocalizations {
   /// **'Sign in'**
   String get signInTitle;
 
-  /// Title of the home screen (placeholder until A9).
+  /// Title of the home screen.
   ///
   /// In en, this message translates to:
   /// **'Home'**
   String get homeTitle;
-
-  /// Temporary button on the home placeholder that returns to sign-in. Removed in A8.
-  ///
-  /// In en, this message translates to:
-  /// **'Back to sign in'**
-  String get placeholderBackToSignIn;
 
   /// Headline on the phone entry screen.
   ///
@@ -285,6 +279,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{attempts, plural, =0{Wrong code. No attempts left.} =1{Wrong code. 1 attempt left.} other{Wrong code. {attempts} attempts left.}}'**
   String otpWrongCodeAttemptsLeft(int attempts);
+
+  /// Screen-reader label of the spinner on the startup screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading…'**
+  String get splashLoading;
+
+  /// Startup screen when the server can't be reached. The user stays signed in.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t connect to the server. Check your internet and try again.'**
+  String get splashCantConnect;
+
+  /// Button on the startup screen that checks the connection again.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get splashRetry;
+
+  /// Tooltip / screen-reader label of the home screen's menu button.
+  ///
+  /// In en, this message translates to:
+  /// **'More options'**
+  String get homeMenuTooltip;
+
+  /// Menu item that signs the user out.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get homeSignOut;
+
+  /// Placeholder on the home screen until the verification cards (A9).
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re signed in.'**
+  String get homeSignedInPlaceholder;
+
+  /// Only button on the account-unavailable screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to sign in'**
+  String get accountUnavailableBackToSignIn;
 }
 
 class _AppLocalizationsDelegate

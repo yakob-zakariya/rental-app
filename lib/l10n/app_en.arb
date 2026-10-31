@@ -10,11 +10,7 @@
   },
   "homeTitle": "Home",
   "@homeTitle": {
-    "description": "Title of the home screen (placeholder until A9)."
-  },
-  "placeholderBackToSignIn": "Back to sign in",
-  "@placeholderBackToSignIn": {
-    "description": "Temporary button on the home placeholder that returns to sign-in. Removed in A8."
+    "description": "Title of the home screen."
   },
   "phoneEntryHeadline": "Enter your phone number",
   "@phoneEntryHeadline": {
@@ -148,5 +144,33 @@
         "type": "int"
       }
     }
+  },
+  "splashLoading": "Loading…",
+  "@splashLoading": {
+    "description": "Screen-reader label of the spinner on the startup screen."
+  },
+  "splashCantConnect": "Can't connect to the server. Check your internet and try again.",
+  "@splashCantConnect": {
+    "description": "Startup screen when the server can't be reached. The user stays signed in."
+  },
+  "splashRetry": "Retry",
+  "@splashRetry": {
+    "description": "Button on the startup screen that checks the connection again."
+  },
+  "homeMenuTooltip": "More options",
+  "@homeMenuTooltip": {
+    "description": "Tooltip / screen-reader label of the home screen's menu button."
+  },
+  "homeSignOut": "Sign out",
+  "@homeSignOut": {
+    "description": "Menu item that signs the user out."
+  },
+  "homeSignedInPlaceholder": "You're signed in.",
+  "@homeSignedInPlaceholder": {
+    "description": "Placeholder on the home screen until the verification cards (A9)."
+  },
+  "accountUnavailableBackToSignIn": "Back to sign in",
+  "@accountUnavailableBackToSignIn": {
+    "description": "Only button on the account-unavailable screen."
   }
 }

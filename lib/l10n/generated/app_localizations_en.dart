@@ -19,9 +19,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeTitle => 'Home';
 
   @override
-  String get placeholderBackToSignIn => 'Back to sign in';
-
-  @override
   String get phoneEntryHeadline => 'Enter your phone number';
 
   @override
@@ -129,4 +126,26 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get splashLoading => 'Loading…';
+
+  @override
+  String get splashCantConnect =>
+      'Can\'t connect to the server. Check your internet and try again.';
+
+  @override
+  String get splashRetry => 'Retry';
+
+  @override
+  String get homeMenuTooltip => 'More options';
+
+  @override
+  String get homeSignOut => 'Sign out';
+
+  @override
+  String get homeSignedInPlaceholder => 'You\'re signed in.';
+
+  @override
+  String get accountUnavailableBackToSignIn => 'Back to sign in';
 }

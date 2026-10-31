@@ -58,6 +58,15 @@ class AuthRepository {
     }
     throw const ApiError(ApiErrorCode.unknownError, statusCode: 200);
   }
+
+  /// `GET /me`, used at startup to check the stored tokens (the profile
+  /// itself is used from A9 on). Throws an [ApiError] when they don't work.
+  Future<void> checkSession() => _api.get('/me');
+
+  /// `POST /auth/logout` (public, always 204): revokes [refreshToken] on the
+  /// server.
+  Future<void> logout(String refreshToken) =>
+      _api.post('/auth/logout', body: {'refreshToken': refreshToken});
 }
 
 final authRepositoryProvider = Provider<AuthRepository>(

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rental_app/app/router.dart';
 import 'package:rental_app/app/config_error_app.dart';
 import 'package:rental_app/l10n/generated/app_localizations_en.dart';
 
@@ -30,25 +28,6 @@ void main() {
 
       final context = tester.element(find.byType(Scaffold));
       expect(Theme.of(context).brightness, brightness);
-    }, variant: brightnessVariant);
-
-    testWidgets('shows home at /home, and back goes to sign-in', (
-      tester,
-    ) async {
-      await tester.pumpRentalApp(brightness: brightnessVariant.currentValue!);
-      final container = ProviderScope.containerOf(
-        tester.element(find.byType(Scaffold)),
-      );
-
-      // Placeholder until A7 signs in for real.
-      container.read(routerProvider).go(AppRoutes.home);
-      await tester.pumpAndSettle();
-      expect(find.text(l10n.homeTitle), findsOneWidget);
-      await expectAccessible(tester);
-
-      await tester.tap(find.text(l10n.placeholderBackToSignIn));
-      await tester.pumpAndSettle();
-      expect(find.text(l10n.phoneEntryHeadline), findsOneWidget);
     }, variant: brightnessVariant);
 
     testWidgets('takes its title from the ARB file', (tester) async {

@@ -4,15 +4,14 @@ import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../app/design_tokens.dart';
-import '../../../app/router.dart';
 import '../../../core/api/api_error.dart';
 import '../../../core/device/device_name.dart';
 import '../../../core/storage/storage_providers.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../data/auth_repository.dart';
+import 'auth_controller.dart';
 import 'otp_error.dart';
 import 'phone_entry_error.dart';
 
@@ -58,10 +57,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
 
   /// After OTP_EXPIRED / OTP_ATTEMPTS_EXCEEDED: offer a new code at once.
   bool _needsNewCode = false;
-
-  /// ACCOUNT_UNAVAILABLE: only the neutral message is shown (A8 replaces
-  /// this with the account-unavailable screen).
-  bool _accountUnavailable = false;
 
   String? _message;
   bool _messageIsError = false;
@@ -122,12 +117,16 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
       await ref.read(tokenStorageProvider).write(tokens);
     } on ApiError catch (error) {
       if (!mounted) return;
+      if (error.code == ApiErrorCode.accountUnavailable) {
+        // The router shows the account-unavailable screen.
+        ref.read(authControllerProvider.notifier).showAccountUnavailable();
+        return;
+      }
       setState(() {
         _verifying = false;
         _showError(otpErrorMessage(error, l10n));
         _code.clear();
         _needsNewCode = otpErrorNeedsNewCode(error);
-        _accountUnavailable = error.code == ApiErrorCode.accountUnavailable;
       });
       return;
     } on Exception {
@@ -141,9 +140,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     }
 
     if (!mounted) return;
-    // go (not push): the sign-in screens are removed, so "back" from home
-    // can't return here.
-    context.go(AppRoutes.home);
+    // The router now shows home and removes the sign-in screens, so "back"
+    // from home can't return here.
+    ref.read(authControllerProvider.notifier).signedIn();
   }
 
   Future<void> _sendNewCode() async {
@@ -195,51 +194,45 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
           child: Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 480),
-              child: _accountUnavailable
-                  ? _Message(
-                      text: l10n.accountUnavailableMessage,
-                      isError: false,
-                    )
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          l10n.otpSentTo(widget.args.phone),
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        const SizedBox(height: AppSpacing.lg),
-                        _CodeField(
-                          controller: _code,
-                          enabled: canEnterCode,
-                          onChanged: _onCodeChanged,
-                        ),
-                        const SizedBox(height: AppSpacing.sm),
-                        _Countdown(remaining: _remaining),
-                        const SizedBox(height: AppSpacing.lg),
-                        if (_message case final message?) ...[
-                          _Message(text: message, isError: _messageIsError),
-                          const SizedBox(height: AppSpacing.md),
-                        ],
-                        FilledButton(
-                          onPressed:
-                              canEnterCode && _code.text.length == otpLength
-                              ? _verify
-                              : null,
-                          child: _verifying
-                              ? _ButtonSpinner(label: l10n.otpVerifying)
-                              : Text(l10n.otpVerify),
-                        ),
-                        if (showNewCodeButton) ...[
-                          const SizedBox(height: AppSpacing.sm),
-                          OutlinedButton(
-                            onPressed: _resending ? null : _sendNewCode,
-                            child: _resending
-                                ? _ButtonSpinner(label: l10n.otpSendingNewCode)
-                                : Text(l10n.otpSendNewCode),
-                          ),
-                        ],
-                      ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    l10n.otpSentTo(widget.args.phone),
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  _CodeField(
+                    controller: _code,
+                    enabled: canEnterCode,
+                    onChanged: _onCodeChanged,
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  _Countdown(remaining: _remaining),
+                  const SizedBox(height: AppSpacing.lg),
+                  if (_message case final message?) ...[
+                    _Message(text: message, isError: _messageIsError),
+                    const SizedBox(height: AppSpacing.md),
+                  ],
+                  FilledButton(
+                    onPressed: canEnterCode && _code.text.length == otpLength
+                        ? _verify
+                        : null,
+                    child: _verifying
+                        ? _ButtonSpinner(label: l10n.otpVerifying)
+                        : Text(l10n.otpVerify),
+                  ),
+                  if (showNewCodeButton) ...[
+                    const SizedBox(height: AppSpacing.sm),
+                    OutlinedButton(
+                      onPressed: _resending ? null : _sendNewCode,
+                      child: _resending
+                          ? _ButtonSpinner(label: l10n.otpSendingNewCode)
+                          : Text(l10n.otpSendNewCode),
                     ),
+                  ],
+                ],
+              ),
             ),
           ),
         ),
