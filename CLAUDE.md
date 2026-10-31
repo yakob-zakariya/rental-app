@@ -33,7 +33,7 @@ push notifications are **out of scope**. If a task seems to need them, stop and 
 ## Stack
 
 - **Flutter** (stable channel), **Dart 3.11+** (required by the Didit SDK)
-- **Target:** Android first, tested on a physical phone over USB (no emulator). The developer uses
+- **Target:** Android first, tested on a physical phone via wireless debugging (no emulator). The developer uses
   Ubuntu; iOS builds need a Mac, later
 - **State management:** Riverpod (`flutter_riverpod`), hand-written providers, no code generation
 - **HTTP:** `dio`
@@ -75,15 +75,27 @@ flutter doctor                      # check the toolchain
 flutter pub get                     # install packages
 flutter gen-l10n                    # regenerate lib/l10n/generated/ after editing an ARB file
                                     # (flutter run / flutter test also do this automatically)
-# Daily run: physical Android phone over USB (no emulator — it crashes the dev PC).
+# Daily run: physical Android phone (a Samsung Galaxy M15), no emulator — it crashes the dev PC.
+# Connected by WIRELESS DEBUGGING (phone and PC on the same Wi-Fi). USB adb times out on this
+# phone, most likely because of Samsung's Auto Blocker (Settings → Security and privacy).
+#
+# One-time pairing: phone → Developer options → Wireless debugging → "Pair device with pairing
+# code", then (while that box is still open):
+adb pair <phone-ip>:<pairing-port> <6-digit-code>
+#
+# Every session (the port changes whenever wireless debugging turns off — screen lock, Wi-Fi drop,
+# restart — so read "IP address & port" on the Wireless debugging screen first):
+adb connect <phone-ip>:<port>
 adb reverse tcp:3000 tcp:3000       # phone's localhost:3000 → this computer's :3000
-                                    # (re-run after every reconnect of the phone)
-flutter run --dart-define=API_BASE_URL=http://localhost:3000
-# Wireless alternative: through the ngrok tunnel (HTTPS).
-flutter run --dart-define=API_BASE_URL=https://<tunnel-domain>
+                                    # (re-run after every reconnect)
+flutter run -d <phone-ip>:<port> --dart-define=API_BASE_URL=http://localhost:3000
+                                    # (-d picks the phone if adb lists it twice)
+# Or reach the backend through the ngrok tunnel instead of adb reverse (HTTPS, the real network
+# path — task A12). adb is still needed to install and run the app.
+flutter run -d <phone-ip>:<port> --dart-define=API_BASE_URL=https://<tunnel-domain>
                                     # (without API_BASE_URL the app shows a "Configuration error" screen)
                                     # Didit webhooks always reach the backend through the ngrok tunnel,
-                                    # so keep it running during verification tests, even over USB.
+                                    # so keep it running during verification tests, even with adb reverse.
 flutter build apk --debug --dart-define=API_BASE_URL=http://localhost:3000   # debug APK
 flutter test                        # all tests
 flutter analyze                     # lints

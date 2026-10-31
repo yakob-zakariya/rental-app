@@ -26,8 +26,8 @@ report the mismatch so this spec gets fixed.
 - **Network security (Android):** release builds are HTTPS-only. A **debug-only** network security
   config allows cleartext HTTP to `localhost` only (the phone over USB, reaching the local backend
   through `adb reverse tcp:3000 tcp:3000`). It must never apply to release builds.
-- **Devices:** all testing is on a physical Android phone (no emulator). Daily: USB with
-  `adb reverse` and `API_BASE_URL=http://localhost:3000`. Wireless: the ngrok tunnel URL. Didit
+- **Devices:** all testing is on a physical Android phone (no emulator). Daily: adb (wireless
+  debugging, or USB) with `adb reverse` and `API_BASE_URL=http://localhost:3000`. Wireless: the ngrok tunnel URL. Didit
   webhooks always reach the backend through the ngrok tunnel.
 - **Router (`go_router`)** with a redirect based on the auth state, which has four values:
   - `checking` → splash (startup, while tokens are read and `GET /me` runs);
