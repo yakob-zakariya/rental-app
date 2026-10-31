@@ -3,7 +3,12 @@
          (Flutter's template only declares this in the debug and profile manifests.) -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <!-- No backups, no device-to-device copies: the auth tokens must stay on
+         this phone (see res/xml/data_extraction_rules.xml). -->
     <application
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:label="rental_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
