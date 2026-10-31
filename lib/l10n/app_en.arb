@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "appTitle": "Rental",
+  "@appTitle": {
+    "description": "App name, shown as the window/task title. Temporary until the brand name is chosen."
+  },
+  "signInTitle": "Sign in",
+  "@signInTitle": {
+    "description": "Title of the sign-in screen (placeholder until A6)."
+  },
+  "homeTitle": "Home",
+  "@homeTitle": {
+    "description": "Title of the home screen (placeholder until A9)."
+  },
+  "placeholderGoToHome": "Go to home",
+  "@placeholderGoToHome": {
+    "description": "Temporary button on the sign-in placeholder that opens home. Removed in A6."
+  },
+  "placeholderBackToSignIn": "Back to sign in",
+  "@placeholderBackToSignIn": {
+    "description": "Temporary button on the home placeholder that returns to sign-in. Removed in A8."
+  }
+}

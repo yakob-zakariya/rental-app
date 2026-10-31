@@ -213,3 +213,7 @@ package version actually installed.
 - **Record consent server-side** (backend item): store that and when the user accepted the
   consent text.
 - **Legal review of the consent text** before launch.
+- **Afaan Oromo Material-localizations fallback:** Flutter's built-in `GlobalMaterialLocalizations`
+  (texts like "OK", "Cancel", date pickers) cover Amharic (`am`) but not Afaan Oromo (`om`). When
+  `app_om.arb` is added, add a small fallback delegate for `om` (e.g. reusing English or Amharic
+  Material texts), or the app fails to load Material widgets in that locale.

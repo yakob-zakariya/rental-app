@@ -1,35 +1,25 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../core/config/app_config.dart';
+import '../l10n/generated/app_localizations.dart';
+import 'router.dart';
+import 'theme.dart';
 
-/// The root widget of the app.
+/// The root widget: theme, translations and the router.
 ///
-/// A1 placeholder: shows "Hello" (and the base URL in debug builds).
-/// A2 replaces this with the theme, router and translations.
-class RentalApp extends StatelessWidget {
-  const RentalApp({super.key, required this.config});
-
-  final AppConfig config;
+/// A `ConsumerWidget` is a `StatelessWidget` that can also read providers
+/// through `ref`.
+class RentalApp extends ConsumerWidget {
+  const RentalApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Temporary placeholder text; moves to the ARB file in A2.
-              const Text('Hello', style: TextStyle(fontSize: 32)),
-              if (kDebugMode) ...[
-                const SizedBox(height: 16),
-                Text(config.apiBaseUrl.toString()),
-              ],
-            ],
-          ),
-        ),
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      routerConfig: ref.watch(routerProvider),
+      theme: buildAppTheme(),
+      onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

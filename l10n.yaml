@@ -1,0 +1,11 @@
+# Flutter's built-in translation generator (gen-l10n).
+# `flutter run`, `flutter test` and `flutter gen-l10n` turn lib/l10n/app_*.arb into the
+# AppLocalizations class in lib/l10n/generated/ (committed, so a fresh clone builds as-is).
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+output-dir: lib/l10n/generated
+output-localization-file: app_localizations.dart
+# AppLocalizations.of(context) never returns null.
+nullable-getter: false
+# Every string needs an "@key" entry with a description, for future translators.
+required-resource-attributes: true
