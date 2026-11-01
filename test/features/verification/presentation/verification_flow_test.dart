@@ -112,7 +112,7 @@ void main() {
       expect(await languageSentFor(() async => _me('am')), 'en');
     });
 
-    test('Afaan Oromo (not supported by Didit) → en', () async {
+    test('Afaan Oromoo (not supported by Didit) → en', () async {
       expect(await languageSentFor(() async => _me('om')), 'en');
     });
 

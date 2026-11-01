@@ -22,6 +22,20 @@ class ProfileRepository {
       throw const ApiError(ApiErrorCode.unknownError, statusCode: 200);
     }
   }
+
+  /// `PATCH /me { preferredLanguage }` — the only editable field (`am`, `om`
+  /// or `en`). Returns the updated profile.
+  Future<UserProfile> updateLanguage(String languageCode) async {
+    final body = await _api.patch(
+      '/me',
+      body: {'preferredLanguage': languageCode},
+    );
+    try {
+      return UserProfile.fromJson(body);
+    } on FormatException {
+      throw const ApiError(ApiErrorCode.unknownError, statusCode: 200);
+    }
+  }
 }
 
 final profileRepositoryProvider = Provider<ProfileRepository>(

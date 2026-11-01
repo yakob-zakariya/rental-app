@@ -8,7 +8,7 @@ against the **live** Didit app, and see `approved` — and a second account veri
 card ends up on the neutral "contact support" screen.
 
 **Out of scope:** listings, search, maps, contact requests, chat, payments, push notifications,
-iOS builds, Amharic/Afaan Oromo translations (the structure is ready; the text comes later),
+iOS builds, Amharic/Afaan Oromoo translations (the structure is ready; the text comes later),
 opening `verificationUrl` in a browser (see §7).
 
 The API contract for everything below is `docs/api-for-mobile.md`. **If this spec and
@@ -176,13 +176,19 @@ report the mismatch so this spec gets fixed.
   review"), `ALREADY_VERIFIED` (show approved), `VERIFICATION_UNAVAILABLE` (neutral "contact support").
 
 ### 3.7 Profile / settings
+- Opened from the home app-bar menu ("Settings", `/settings`).
 - Shows phone, verification status, and — once approved — the verified name and date of birth
-  (read-only). The date of birth is shown **exactly as received** (`YYYY-MM-DD` string) until A13
+  (read-only). The phone is grouped for display only: `+251911234567` → `+251 911 234 567` (3-3-3
+  after the country code, like `09XX XXX XXX`); anything else is shown as received. The date of birth is shown **exactly as received** (`YYYY-MM-DD` string) until A13
   confirms which calendar Didit returns.
-- Language: Amharic / Afaan Oromo / English → `PATCH /me { preferredLanguage }`. In Phase 1 the
-  app's own text stays English; the choice is saved for later.
+- Language: each in its own name — "አማርኛ" (`am`) / "Afaan Oromoo" (`om`) / "English" (`en`), the
+  same in every translation → `PATCH /me { preferredLanguage }`. In Phase 1 the app's own text
+  stays English; the choice is saved for later (and picks Didit's language when Didit supports it,
+  §3.5).
 - "Sign out" (also in the home app-bar menu) → `POST /auth/logout` with the refresh token (public
   route, always `204`; ignore network failures), clear tokens, go to sign-in.
+- "Open-source licences" → Flutter's licences page (all packages, plus the bundled fonts' OFL
+  licences).
 
 ### 3.8 Account unavailable
 - Shown on `ACCOUNT_UNAVAILABLE` anywhere (state `accountUnavailable`). Neutral text: "This account
@@ -245,9 +251,9 @@ package version actually installed.
 
 - **Android SMS autofill** (with a real SMS provider): the SMS User Consent API needs no SMS text
   change; the SMS Retriever API needs the app hash in the message (a `rental-api` change).
-- **Didit's language:** Didit's verification UI supports neither Amharic (`am`) nor Afaan Oromo
+- **Didit's language:** Didit's verification UI supports neither Amharic (`am`) nor Afaan Oromoo
   (`om`) (54 languages, checked 2026-11-01), so every user currently sees it in English. Re-check
-  Didit's "Supported languages" page when the app gets its own Amharic/Afaan Oromo text, and add the
+  Didit's "Supported languages" page when the app gets its own Amharic/Afaan Oromoo text, and add the
   codes to `diditSupportedLanguages` (`lib/features/verification/data/verification_sdk.dart`) once
   Didit supports them; consider asking Didit for them.
 - **Ethiopian clock:** when Amharic is added, consider showing times (e.g. "try again after …")
@@ -256,7 +262,7 @@ package version actually installed.
 - **Record consent server-side** (backend item): store that and when the user accepted the
   consent text.
 - **Legal review of the consent text** before launch.
-- **Afaan Oromo Material-localizations fallback:** Flutter's built-in `GlobalMaterialLocalizations`
-  (texts like "OK", "Cancel", date pickers) cover Amharic (`am`) but not Afaan Oromo (`om`). When
+- **Afaan Oromoo Material-localizations fallback:** Flutter's built-in `GlobalMaterialLocalizations`
+  (texts like "OK", "Cancel", date pickers) cover Amharic (`am`) but not Afaan Oromoo (`om`). When
   `app_om.arb` is added, add a small fallback delegate for `om` (e.g. reusing English or Amharic
   Material texts), or the app fails to load Material widgets in that locale.

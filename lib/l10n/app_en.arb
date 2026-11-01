@@ -365,5 +365,85 @@
   "manualReviewDialogConfirm": "Request review",
   "@manualReviewDialogConfirm": {
     "description": "Confirms the manual review request."
+  },
+  "homeSettings": "Settings",
+  "@homeSettings": {
+    "description": "Home menu item that opens the settings screen."
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Title of the settings screen."
+  },
+  "settingsLoading": "Loading your profile…",
+  "@settingsLoading": {
+    "description": "Screen-reader label of the spinner while the profile loads."
+  },
+  "settingsAccount": "Account",
+  "@settingsAccount": {
+    "description": "Heading of the account card."
+  },
+  "settingsPhone": "Phone number",
+  "@settingsPhone": {
+    "description": "Label of the phone number."
+  },
+  "settingsVerification": "Verification",
+  "@settingsVerification": {
+    "description": "Heading of the verification card."
+  },
+  "settingsVerifiedName": "Verified name",
+  "@settingsVerifiedName": {
+    "description": "Label of the name from identity verification."
+  },
+  "settingsDateOfBirth": "Date of birth",
+  "@settingsDateOfBirth": {
+    "description": "Label of the date of birth from identity verification."
+  },
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "Heading of the language card."
+  },
+  "settingsLanguageNote": "The app's own text is in English for now.",
+  "@settingsLanguageNote": {
+    "description": "Under the language choices: the app isn't translated yet."
+  },
+  "settingsSaving": "Saving…",
+  "@settingsSaving": {
+    "description": "Screen-reader label of the spinner while the language is saved."
+  },
+  "settingsLicences": "Open-source licences",
+  "@settingsLicences": {
+    "description": "Opens the list of open-source licences (packages and fonts)."
+  },
+  "languageAmharic": "አማርኛ",
+  "@languageAmharic": {
+    "description": "Amharic, written in Amharic. Keep this exact text in every translation."
+  },
+  "languageOromo": "Afaan Oromoo",
+  "@languageOromo": {
+    "description": "Afaan Oromoo, written in Afaan Oromoo. Keep this exact text in every translation."
+  },
+  "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "English, written in English. Keep this exact text in every translation."
+  },
+  "statusNotVerified": "Not verified",
+  "@statusNotVerified": {
+    "description": "Verification status in settings: not_verified."
+  },
+  "statusPending": "Being checked",
+  "@statusPending": {
+    "description": "Verification status in settings: pending."
+  },
+  "statusApproved": "Verified",
+  "@statusApproved": {
+    "description": "Verification status in settings: approved."
+  },
+  "statusDeclined": "Not approved",
+  "@statusDeclined": {
+    "description": "Verification status in settings: declined."
+  },
+  "statusManualReview": "Under review",
+  "@statusManualReview": {
+    "description": "Verification status in settings: manual_review."
   }
 }

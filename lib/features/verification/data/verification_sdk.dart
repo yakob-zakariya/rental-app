@@ -54,7 +54,7 @@ SdkOutcome sdkOutcomeOf(didit.VerificationResult result) => switch (result) {
 
 /// The languages Didit's verification UI supports (docs.didit.me
 /// "Supported languages" and the didit_sdk 4.9.1 README, checked
-/// 2026-11-01). Neither Amharic (`am`) nor Afaan Oromo (`om`) is among them.
+/// 2026-11-01). Neither Amharic (`am`) nor Afaan Oromoo (`om`) is among them.
 const diditSupportedLanguages = {
   'sq', 'ar', 'hy', 'bn', 'bs', 'bg', 'ca', 'zh', 'zh-CN', 'zh-TW', 'hr', //
   'cs', 'da', 'nl', 'en', 'et', 'fi', 'fr', 'ka', 'de', 'el', 'he', 'hi', //

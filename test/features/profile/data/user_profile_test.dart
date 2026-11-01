@@ -110,5 +110,29 @@ void main() {
         ),
       );
     });
+
+    test('updateLanguage PATCHes only preferredLanguage and returns the '
+        'updated profile', () async {
+      network.reply(200, json: meJson({'preferredLanguage': 'en'}));
+
+      final me = await repository.updateLanguage('en');
+
+      final request = network.requests.single;
+      expect(request.method, 'PATCH');
+      expect(request.path, '/me');
+      expect(request.data, {'preferredLanguage': 'en'});
+      expect(me.preferredLanguage, 'en');
+    });
+
+    test('updateLanguage passes API errors through', () async {
+      network.reply(400, json: {'code': 'VALIDATION_FAILED'});
+
+      await expectLater(
+        repository.updateLanguage('xx'),
+        throwsA(
+          isA<ApiError>().having((e) => e.code, 'code', 'VALIDATION_FAILED'),
+        ),
+      );
+    });
   });
 }

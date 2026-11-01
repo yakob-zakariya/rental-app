@@ -263,7 +263,7 @@ class _LoadError extends StatelessWidget {
   }
 }
 
-/// The app-bar menu. Settings joins it in A11.
+/// The app-bar menu.
 class _HomeMenu extends ConsumerWidget {
   const _HomeMenu();
 
@@ -273,10 +273,19 @@ class _HomeMenu extends ConsumerWidget {
     return PopupMenuButton<_MenuItem>(
       tooltip: l10n.homeMenuTooltip,
       onSelected: (item) => switch (item) {
+        _MenuItem.settings => context.push(AppRoutes.settings),
         _MenuItem.signOut =>
           ref.read(authControllerProvider.notifier).signOut(),
       },
       itemBuilder: (context) => [
+        PopupMenuItem(
+          value: _MenuItem.settings,
+          child: ListTile(
+            leading: const Icon(Icons.settings_outlined),
+            title: Text(l10n.homeSettings),
+            contentPadding: EdgeInsets.zero,
+          ),
+        ),
         PopupMenuItem(
           value: _MenuItem.signOut,
           child: ListTile(
@@ -290,4 +299,4 @@ class _HomeMenu extends ConsumerWidget {
   }
 }
 
-enum _MenuItem { signOut }
+enum _MenuItem { settings, signOut }

@@ -39,7 +39,7 @@ void main() {
   });
 
   group('diditLanguageFor (the user\'s language if Didit has it, else en)', () {
-    test('Amharic and Afaan Oromo are not supported by Didit → English', () {
+    test('Amharic and Afaan Oromoo are not supported by Didit → English', () {
       expect(diditSupportedLanguages, isNot(contains('am')));
       expect(diditSupportedLanguages, isNot(contains('om')));
       expect(diditLanguageFor('am'), 'en');

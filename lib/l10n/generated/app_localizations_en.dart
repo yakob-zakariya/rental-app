@@ -298,4 +298,65 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get manualReviewDialogConfirm => 'Request review';
+
+  @override
+  String get homeSettings => 'Settings';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsLoading => 'Loading your profile…';
+
+  @override
+  String get settingsAccount => 'Account';
+
+  @override
+  String get settingsPhone => 'Phone number';
+
+  @override
+  String get settingsVerification => 'Verification';
+
+  @override
+  String get settingsVerifiedName => 'Verified name';
+
+  @override
+  String get settingsDateOfBirth => 'Date of birth';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsLanguageNote =>
+      'The app\'s own text is in English for now.';
+
+  @override
+  String get settingsSaving => 'Saving…';
+
+  @override
+  String get settingsLicences => 'Open-source licences';
+
+  @override
+  String get languageAmharic => 'አማርኛ';
+
+  @override
+  String get languageOromo => 'Afaan Oromoo';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get statusNotVerified => 'Not verified';
+
+  @override
+  String get statusPending => 'Being checked';
+
+  @override
+  String get statusApproved => 'Verified';
+
+  @override
+  String get statusDeclined => 'Not approved';
+
+  @override
+  String get statusManualReview => 'Under review';
 }

@@ -39,7 +39,7 @@ push notifications are **out of scope**. If a task seems to need them, stop and 
 - **HTTP:** `dio`
 - **Secure storage:** `flutter_secure_storage`
 - **Navigation:** `go_router`
-- **Translations:** Flutter's built-in `gen-l10n` with ARB files (English now; Amharic and Afaan Oromo later)
+- **Translations:** Flutter's built-in `gen-l10n` with ARB files (English now; Amharic and Afaan Oromoo later)
 - **Identity verification:** `didit_sdk` (Didit's Flutter SDK), started with a `sessionToken` from our backend
 - **Tests:** `flutter_test`, `mocktail`
 
@@ -82,7 +82,7 @@ Trust over flashiness: modern but calm.
   flat, outlined), controls with a 12 px radius (`lib/app/design_tokens.dart`). No clutter.
 - **Clear typography hierarchy** from the theme's `textTheme` (headline → title → body → label).
 - **Fonts:** Noto Sans, with Noto Sans Ethiopic as fallback for Ethiopic script (Amharic),
-  bundled in `assets/fonts/` (never downloaded at runtime). Afaan Oromo uses the Latin alphabet,
+  bundled in `assets/fonts/` (never downloaded at runtime). Afaan Oromoo uses the Latin alphabet,
   so Noto Sans covers it. Both are under the **SIL Open Font License 1.1** (bundling in an app,
   including a commercial one, is allowed; the licence text must travel with the fonts: the
   `*-OFL.txt` files, registered on the licences page by `lib/app/licenses.dart`; the fonts may

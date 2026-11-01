@@ -6,7 +6,7 @@ import 'design_tokens.dart';
 const appSeedColor = Color(0xFF0B6E69);
 
 /// Bundled fonts (assets/fonts/, declared in pubspec.yaml). Noto Sans covers
-/// Latin (English, Afaan Oromo); characters it lacks — Ethiopic script for
+/// Latin (English, Afaan Oromoo); characters it lacks — Ethiopic script for
 /// Amharic — come from the fallback.
 const appFontFamily = 'NotoSans';
 const appFontFamilyFallback = ['NotoSansEthiopic'];

@@ -585,6 +585,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Request review'**
   String get manualReviewDialogConfirm;
+
+  /// Home menu item that opens the settings screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get homeSettings;
+
+  /// Title of the settings screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// Screen-reader label of the spinner while the profile loads.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading your profile…'**
+  String get settingsLoading;
+
+  /// Heading of the account card.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settingsAccount;
+
+  /// Label of the phone number.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get settingsPhone;
+
+  /// Heading of the verification card.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification'**
+  String get settingsVerification;
+
+  /// Label of the name from identity verification.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified name'**
+  String get settingsVerifiedName;
+
+  /// Label of the date of birth from identity verification.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of birth'**
+  String get settingsDateOfBirth;
+
+  /// Heading of the language card.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// Under the language choices: the app isn't translated yet.
+  ///
+  /// In en, this message translates to:
+  /// **'The app\'s own text is in English for now.'**
+  String get settingsLanguageNote;
+
+  /// Screen-reader label of the spinner while the language is saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get settingsSaving;
+
+  /// Opens the list of open-source licences (packages and fonts).
+  ///
+  /// In en, this message translates to:
+  /// **'Open-source licences'**
+  String get settingsLicences;
+
+  /// Amharic, written in Amharic. Keep this exact text in every translation.
+  ///
+  /// In en, this message translates to:
+  /// **'አማርኛ'**
+  String get languageAmharic;
+
+  /// Afaan Oromoo, written in Afaan Oromoo. Keep this exact text in every translation.
+  ///
+  /// In en, this message translates to:
+  /// **'Afaan Oromoo'**
+  String get languageOromo;
+
+  /// English, written in English. Keep this exact text in every translation.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get languageEnglish;
+
+  /// Verification status in settings: not_verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Not verified'**
+  String get statusNotVerified;
+
+  /// Verification status in settings: pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Being checked'**
+  String get statusPending;
+
+  /// Verification status in settings: approved.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get statusApproved;
+
+  /// Verification status in settings: declined.
+  ///
+  /// In en, this message translates to:
+  /// **'Not approved'**
+  String get statusDeclined;
+
+  /// Verification status in settings: manual_review.
+  ///
+  /// In en, this message translates to:
+  /// **'Under review'**
+  String get statusManualReview;
 }
 
 class _AppLocalizationsDelegate
