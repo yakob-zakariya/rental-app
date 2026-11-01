@@ -5,6 +5,9 @@ import '../../../../l10n/generated/app_localizations.dart';
 import '../../data/verification_status.dart';
 import '../verification_messages.dart';
 
+/// The card's buttons.
+enum VerificationAction { verify, resume, tryAgain, manualReview }
+
 /// What the card's buttons do. The card only decides *which* buttons appear,
 /// and only from the API's flags (hard rule 7).
 class VerificationActions {
@@ -14,14 +17,6 @@ class VerificationActions {
     required this.onTryAgain,
     required this.onRequestManualReview,
   });
-
-  /// A9: every button is shown but does nothing yet; A10 connects them.
-  static final noop = VerificationActions(
-    onVerify: () {},
-    onContinue: () {},
-    onTryAgain: () {},
-    onRequestManualReview: () {},
-  );
 
   final VoidCallback onVerify;
   final VoidCallback onContinue;
@@ -36,6 +31,7 @@ class VerificationStatusCard extends StatelessWidget {
     required this.summary,
     required this.actions,
     this.verifiedName,
+    this.busy,
   });
 
   final VerificationSummary summary;
@@ -44,24 +40,52 @@ class VerificationStatusCard extends StatelessWidget {
   /// From `GET /me`, for the approved card (null until loaded).
   final String? verifiedName;
 
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+  /// While an action runs: its button shows a spinner, and every button is
+  /// disabled (no double taps).
+  final VerificationAction? busy;
+
+  /// A button for [action]: a spinner while it runs, disabled while any
+  /// action runs.
+  Widget _button(
+    VerificationAction action,
+    String label,
+    VoidCallback onTap, {
+    bool outlined = false,
+  }) => _ActionButton(
+    label: label,
+    busy: busy == action,
+    onPressed: busy == null ? onTap : null,
+    outlined: outlined,
+  );
+
+  /// What each status shows (spec 3.4).
+  _CardContent _content(AppLocalizations l10n) {
     final s = summary;
 
-    final _CardContent content = switch (s.status) {
+    return switch (s.status) {
       VerificationStatus.notVerified => _CardContent(
         icon: Icons.badge_outlined,
         title: l10n.verifyNotVerifiedTitle,
         body: l10n.verifyNotVerifiedBody,
-        buttons: [_Main(l10n.verifyNotVerifiedButton, actions.onVerify)],
+        buttons: [
+          _button(
+            VerificationAction.verify,
+            l10n.verifyNotVerifiedButton,
+            actions.onVerify,
+          ),
+        ],
       ),
       VerificationStatus.pending => _CardContent(
         icon: Icons.hourglass_top_outlined,
         title: l10n.verifyPendingTitle,
         body: l10n.verifyPendingBody,
         buttons: [
-          if (s.canRetry) _Main(l10n.verifyContinueButton, actions.onContinue),
+          if (s.canRetry)
+            _button(
+              VerificationAction.resume,
+              l10n.verifyContinueButton,
+              actions.onContinue,
+            ),
         ],
       ),
       VerificationStatus.approved => _CardContent(
@@ -79,11 +103,18 @@ class VerificationStatusCard extends StatelessWidget {
         body: declineReasonMessage(s.reasonCode, l10n),
         note: s.canRetry ? null : retryTimeMessage(s.retryAvailableAt, l10n),
         buttons: [
-          if (s.canRetry) _Main(l10n.verifyTryAgainButton, actions.onTryAgain),
+          if (s.canRetry)
+            _button(
+              VerificationAction.tryAgain,
+              l10n.verifyTryAgainButton,
+              actions.onTryAgain,
+            ),
           if (s.canRequestManualReview)
-            _Secondary(
+            _button(
+              VerificationAction.manualReview,
               l10n.verifyManualReviewButton,
               actions.onRequestManualReview,
+              outlined: true,
             ),
         ],
       ),
@@ -102,11 +133,14 @@ class VerificationStatusCard extends StatelessWidget {
         body: l10n.verifyUnknownBody,
       ),
     };
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
-        child: content,
+        child: _content(AppLocalizations.of(context)),
       ),
     );
   }
@@ -178,24 +212,33 @@ class _CardContent extends StatelessWidget {
   }
 }
 
-class _Main extends StatelessWidget {
-  const _Main(this.label, this.onPressed);
+/// A card button; shows a spinner while its action runs.
+class _ActionButton extends StatelessWidget {
+  const _ActionButton({
+    required this.label,
+    required this.busy,
+    required this.onPressed,
+    required this.outlined,
+  });
 
   final String label;
-  final VoidCallback onPressed;
+  final bool busy;
+  final VoidCallback? onPressed;
+  final bool outlined;
 
   @override
-  Widget build(BuildContext context) =>
-      FilledButton(onPressed: onPressed, child: Text(label));
-}
-
-class _Secondary extends StatelessWidget {
-  const _Secondary(this.label, this.onPressed);
-
-  final String label;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) =>
-      OutlinedButton(onPressed: onPressed, child: Text(label));
+  Widget build(BuildContext context) {
+    final child = busy
+        ? SizedBox.square(
+            dimension: 22,
+            child: CircularProgressIndicator(
+              strokeWidth: 2.5,
+              semanticsLabel: AppLocalizations.of(context).verifyBusy,
+            ),
+          )
+        : Text(label);
+    return outlined
+        ? OutlinedButton(onPressed: onPressed, child: child)
+        : FilledButton(onPressed: onPressed, child: child);
+  }
 }

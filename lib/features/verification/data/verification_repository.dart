@@ -21,6 +21,45 @@ class VerificationRepository {
       throw const ApiError(ApiErrorCode.unknownError, statusCode: 200);
     }
   }
+
+  /// `POST /verification/sessions` (no body): starts a session, or returns
+  /// the open one (a resume doesn't use a retry).
+  Future<VerificationSession> startSession() async {
+    final body = await _api.post('/verification/sessions');
+    final url = body['verificationUrl'];
+    final token = body['sessionToken'];
+    if (url is String && token is String && token.isNotEmpty) {
+      return VerificationSession(verificationUrl: url, sessionToken: token);
+    }
+    throw const ApiError(ApiErrorCode.unknownError, statusCode: 201);
+  }
+
+  /// `POST /verification/manual-review-request` (no body). Returns the new
+  /// status (`manual_review`).
+  Future<VerificationSummary> requestManualReview() async {
+    final body = await _api.post('/verification/manual-review-request');
+    try {
+      return VerificationSummary.fromJson(body);
+    } on FormatException {
+      throw const ApiError(ApiErrorCode.unknownError, statusCode: 200);
+    }
+  }
+}
+
+/// A Didit session from our backend. The [sessionToken] is a secret: never
+/// logged (hard rule 2), and [toString] hides it.
+class VerificationSession {
+  const VerificationSession({
+    required this.verificationUrl,
+    required this.sessionToken,
+  });
+
+  /// The hosted flow (a later browser fallback; not used in Phase 1).
+  final String verificationUrl;
+  final String sessionToken;
+
+  @override
+  String toString() => 'VerificationSession(***)';
 }
 
 final verificationRepositoryProvider = Provider<VerificationRepository>(

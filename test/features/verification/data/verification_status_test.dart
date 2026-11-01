@@ -146,5 +146,85 @@ void main() {
         ),
       );
     });
+
+    test('startSession POSTs /verification/sessions without a body', () async {
+      network.reply(
+        201,
+        json: {
+          'verificationUrl': 'https://verify.didit.me/session/abc',
+          'sessionToken': 'secret-session-token',
+        },
+      );
+
+      final session = await repository.startSession();
+
+      final request = network.requests.single;
+      expect(request.method, 'POST');
+      expect(request.path, '/verification/sessions');
+      expect(request.data, isNull);
+      expect(session.sessionToken, 'secret-session-token');
+      // The token is a secret: never printed.
+      expect(session.toString(), isNot(contains('secret')));
+    });
+
+    test('startSession: a body without a token → UNKNOWN_ERROR', () async {
+      network.reply(
+        201,
+        json: {'verificationUrl': 'https://verify.didit.me/x'},
+      );
+
+      await expectLater(
+        repository.startSession(),
+        throwsA(
+          isA<ApiError>().having(
+            (e) => e.code,
+            'code',
+            ApiErrorCode.unknownError,
+          ),
+        ),
+      );
+    });
+
+    test('startSession passes VERIFICATION_RETRY_LIMIT through with its '
+        'fields', () async {
+      network.reply(
+        429,
+        json: {
+          'code': 'VERIFICATION_RETRY_LIMIT',
+          'manualReviewAvailable': true,
+          'retryAfterSeconds': 5000,
+        },
+      );
+
+      await expectLater(
+        repository.startSession(),
+        throwsA(
+          isA<ApiError>()
+              .having((e) => e.code, 'code', 'VERIFICATION_RETRY_LIMIT')
+              .having((e) => e.retryAfterSeconds, 'retryAfterSeconds', 5000)
+              .having((e) => e.manualReviewAvailable, 'manual', isTrue),
+        ),
+      );
+    });
+
+    test('requestManualReview POSTs and returns the new status', () async {
+      network.reply(
+        200,
+        json: statusJson({
+          'status': 'manual_review',
+          'canRequestManualReview': false,
+          'retryAvailableAt': null,
+          'reasonCode': null,
+        }),
+      );
+
+      final s = await repository.requestManualReview();
+
+      final request = network.requests.single;
+      expect(request.method, 'POST');
+      expect(request.path, '/verification/manual-review-request');
+      expect(request.data, isNull);
+      expect(s.status, VerificationStatus.manualReview);
+    });
   });
 }

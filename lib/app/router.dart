@@ -8,6 +8,8 @@ import '../features/auth/presentation/otp_screen.dart';
 import '../features/auth/presentation/sign_in_screen.dart';
 import '../features/auth/presentation/splash_screen.dart';
 import '../features/home/presentation/home_screen.dart';
+import '../features/verification/presentation/checking_screen.dart';
+import '../features/verification/presentation/consent_screen.dart';
 
 /// Route paths, so screens never spell them out by hand.
 abstract final class AppRoutes {
@@ -16,6 +18,8 @@ abstract final class AppRoutes {
   static const otp = '/sign-in/code';
   static const home = '/home';
   static const accountUnavailable = '/account-unavailable';
+  static const verificationConsent = '/verification/consent';
+  static const verificationChecking = '/verification/checking';
 }
 
 /// Where the sign-in state allows the user to be. Returns the location to
@@ -78,6 +82,14 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.home,
         builder: (context, state) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.verificationConsent,
+        builder: (context, state) => const ConsentScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.verificationChecking,
+        builder: (context, state) => const CheckingScreen(),
       ),
       GoRoute(
         path: AppRoutes.accountUnavailable,

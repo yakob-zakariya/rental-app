@@ -483,6 +483,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t refresh. Check your connection.'**
   String get homeRefreshFailedOffline;
+
+  /// Title of the consent screen shown before a new verification.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you start'**
+  String get consentTitle;
+
+  /// Headline of the consent screen.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll check your ID and a selfie'**
+  String get consentHeadline;
+
+  /// Consent text. Must stay exactly true to what rental-api stores; legal review before launch.
+  ///
+  /// In en, this message translates to:
+  /// **'Your ID and selfie are checked by our verification partner, Didit. We don\'t store the photos. We keep your verified name, date of birth and a protected one-way reference to your ID number, used only to prevent duplicate and banned accounts.'**
+  String get consentBody;
+
+  /// Starts the verification after reading the consent text.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get consentContinue;
+
+  /// Screen-reader label of the spinner while the session starts.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting verification…'**
+  String get consentStarting;
+
+  /// Shown when the Didit flow failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification couldn\'t continue. Please try again.'**
+  String get verifyFailedMessage;
+
+  /// VERIFICATION_PROVIDER_UNAVAILABLE.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification is unavailable right now. Please try again shortly.'**
+  String get verifyProviderUnavailable;
+
+  /// Screen-reader label of a button's spinner on the status card.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait…'**
+  String get verifyBusy;
+
+  /// App-bar title of the checking screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification'**
+  String get checkingTitle;
+
+  /// Shown on the checking screen after the first minute.
+  ///
+  /// In en, this message translates to:
+  /// **'This can take a few minutes. You can leave this screen; Home will update when you come back.'**
+  String get checkingLeaveHint;
+
+  /// Shown on the checking screen when a poll fails for lack of connection.
+  ///
+  /// In en, this message translates to:
+  /// **'No connection. We\'ll keep checking.'**
+  String get checkingOfflineHint;
+
+  /// Shown on the checking screen when a poll fails for another reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. We\'ll keep checking.'**
+  String get checkingErrorHint;
+
+  /// Leaves the checking screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to home'**
+  String get checkingBackHome;
+
+  /// Title of the manual-review confirmation dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Request a manual review?'**
+  String get manualReviewDialogTitle;
+
+  /// Body of the manual-review confirmation dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Our team will look at your verification by hand. You\'ll see the result here.'**
+  String get manualReviewDialogBody;
+
+  /// Closes the manual-review dialog without requesting.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get manualReviewDialogCancel;
+
+  /// Confirms the manual review request.
+  ///
+  /// In en, this message translates to:
+  /// **'Request review'**
+  String get manualReviewDialogConfirm;
 }
 
 class _AppLocalizationsDelegate

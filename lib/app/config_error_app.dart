@@ -31,7 +31,10 @@ class ConfigErrorApp extends StatelessWidget {
                 const SizedBox(height: 16),
                 Text(message),
                 const SizedBox(height: 16),
-                const Text('Connect the phone by USB and start the app with:'),
+                const Text(
+                  'Connect the phone by USB (or wireless debugging), check that '
+                  '"adb devices" lists it, then start the app with:',
+                ),
                 const SizedBox(height: 8),
                 const SelectableText(
                   'adb reverse tcp:3000 tcp:3000',

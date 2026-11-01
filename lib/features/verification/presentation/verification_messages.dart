@@ -1,3 +1,6 @@
+import 'package:clock/clock.dart';
+
+import '../../../core/api/api_error.dart';
 import '../../../core/time/addis_time.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
@@ -21,4 +24,40 @@ String retryTimeMessage(DateTime? retryAvailableAt, AppLocalizations l10n) {
   return isTodayInAddis(retryAvailableAt)
       ? l10n.verifyRetryAfter(time)
       : l10n.verifyRetryTomorrowAfter(time);
+}
+
+/// The message for a refused `POST /verification/sessions`, or `null` when
+/// the status itself changed (approved, in review, blocked): then the
+/// reloaded status card shows it.
+String? startErrorMessage(ApiError error, AppLocalizations l10n) {
+  return switch (error.code) {
+    ApiErrorCode.alreadyVerified ||
+    ApiErrorCode.verificationInReview ||
+    ApiErrorCode.verificationUnavailable => null,
+    // The same wording as Home's card ("after HH:mm" / "tomorrow after").
+    ApiErrorCode.verificationRetryLimit => retryTimeMessage(
+      switch (error.retryAfterSeconds) {
+        final seconds? => clock.now().add(Duration(seconds: seconds)),
+        null => null,
+      },
+      l10n,
+    ),
+    ApiErrorCode.verificationProviderUnavailable =>
+      l10n.verifyProviderUnavailable,
+    ApiErrorCode.networkError => l10n.errorNetwork,
+    _ => l10n.errorGeneric,
+  };
+}
+
+/// The message for a refused manual review request, or `null` when the
+/// status changed (the reloaded card shows it).
+String? manualReviewErrorMessage(ApiError error, AppLocalizations l10n) {
+  return switch (error.code) {
+    ApiErrorCode.manualReviewNotAvailable ||
+    ApiErrorCode.verificationInReview ||
+    ApiErrorCode.alreadyVerified ||
+    ApiErrorCode.verificationUnavailable => null,
+    ApiErrorCode.networkError => l10n.errorNetwork,
+    _ => l10n.errorGeneric,
+  };
 }

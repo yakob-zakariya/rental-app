@@ -242,4 +242,60 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get homeRefreshFailedOffline =>
       'Couldn\'t refresh. Check your connection.';
+
+  @override
+  String get consentTitle => 'Before you start';
+
+  @override
+  String get consentHeadline => 'We\'ll check your ID and a selfie';
+
+  @override
+  String get consentBody =>
+      'Your ID and selfie are checked by our verification partner, Didit. We don\'t store the photos. We keep your verified name, date of birth and a protected one-way reference to your ID number, used only to prevent duplicate and banned accounts.';
+
+  @override
+  String get consentContinue => 'Continue';
+
+  @override
+  String get consentStarting => 'Starting verification…';
+
+  @override
+  String get verifyFailedMessage =>
+      'Verification couldn\'t continue. Please try again.';
+
+  @override
+  String get verifyProviderUnavailable =>
+      'Verification is unavailable right now. Please try again shortly.';
+
+  @override
+  String get verifyBusy => 'Please wait…';
+
+  @override
+  String get checkingTitle => 'Verification';
+
+  @override
+  String get checkingLeaveHint =>
+      'This can take a few minutes. You can leave this screen; Home will update when you come back.';
+
+  @override
+  String get checkingOfflineHint => 'No connection. We\'ll keep checking.';
+
+  @override
+  String get checkingErrorHint => 'Something went wrong. We\'ll keep checking.';
+
+  @override
+  String get checkingBackHome => 'Back to home';
+
+  @override
+  String get manualReviewDialogTitle => 'Request a manual review?';
+
+  @override
+  String get manualReviewDialogBody =>
+      'Our team will look at your verification by hand. You\'ll see the result here.';
+
+  @override
+  String get manualReviewDialogCancel => 'Cancel';
+
+  @override
+  String get manualReviewDialogConfirm => 'Request review';
 }

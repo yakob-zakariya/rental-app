@@ -75,8 +75,8 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
       the status once that time passes),
       fallback text for unknown status / `reasonCode`, pull-to-refresh, refresh on app foreground.
       Widget tests for every status, the unknown values, and the declined-card combinations.
-- [ ] **A10 Didit SDK + verification flow.** Add `didit_sdk` (NFC disabled; confirm the API against
-      the installed version), consent screen (before new sessions only, exact text from spec 3.5),
+- [ ] **A10 Didit SDK + verification flow.** Add `didit_sdk` (`diditSdkAndroidVariant=autodetection`:
+      no NFC; confirm the API against the installed version; report the release APK size), consent screen (before new sessions only, exact text from spec 3.5),
       start session (all errors), launch the SDK, handle each result (completed → "Checking…",
       cancelled → home, failed → home with message), "Checking…" polling screen (5 s for the first
       minute, then 30 s, while open, plus on foreground), manual-review request (all four errors;

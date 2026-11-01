@@ -29,8 +29,8 @@ report the mismatch so this spec gets fixed.
 - **No Android backup:** `allowBackup="false"` plus `data_extraction_rules.xml` (no cloud backup,
   no device-to-device transfer). Tokens are encrypted with a Keystore key that never leaves the
   phone, and must not move to another device; a new phone or a restore starts signed out.
-- **Devices:** all testing is on a physical Android phone (no emulator). Daily: adb (wireless
-  debugging, or USB) with `adb reverse` and `API_BASE_URL=http://localhost:3000`. Wireless: the ngrok tunnel URL. Didit
+- **Devices:** all testing is on a physical Android phone (no emulator). Daily: adb over USB (wireless
+  debugging as the alternative) with `adb reverse` and `API_BASE_URL=http://localhost:3000`. Wireless: the ngrok tunnel URL. Didit
   webhooks always reach the backend through the ngrok tunnel.
 - **Router (`go_router`)** with a redirect based on the auth state, which has four values:
   - `checking` → splash (startup, while tokens are read and `GET /me` runs);
@@ -139,10 +139,20 @@ report the mismatch so this spec gets fixed.
    …and a "Continue" button.
 2. `POST /verification/sessions` → `{ verificationUrl, sessionToken }`.
    Errors: `ALREADY_VERIFIED`, `VERIFICATION_IN_REVIEW`, `VERIFICATION_UNAVAILABLE` (neutral),
-   `VERIFICATION_RETRY_LIMIT` (show when they can retry from `retryAfterSeconds`; offer manual
-   review if `manualReviewAvailable`), `VERIFICATION_PROVIDER_UNAVAILABLE` ("try again shortly").
+   `VERIFICATION_RETRY_LIMIT` (show when they can retry from `retryAfterSeconds`, with the same
+   wording as Home's card: "You can try again after HH:mm" / "…tomorrow after HH:mm" in Addis
+   Ababa time; reload the status, whose card offers manual review when allowed),
+   `VERIFICATION_PROVIDER_UNAVAILABLE` ("try again shortly"). `ALREADY_VERIFIED`,
+   `VERIFICATION_IN_REVIEW` and `VERIFICATION_UNAVAILABLE` just reload the status (its card shows
+   approved / in review / the neutral blocked text).
    The `sessionToken` is never logged.
-3. `DiditSdk.startVerification(sessionToken)` returns a sealed `VerificationResult`:
+3. `DiditSdk.startVerification(sessionToken, config: DiditConfig(...))` with `loggingEnabled: false`
+   (hard rule 2), `closeOnComplete: true` (Didit's own final screen could say "approved" before the
+   backend has applied its checks) and `languageCode`: the user's `preferredLanguage` from `GET /me`
+   when Didit supports it, otherwise English. **Didit supports neither Amharic (`am`) nor Afaan
+   Oromo (`om`)** (its 54 languages, checked 2026-11-01 in docs.didit.me "Supported languages" and
+   the didit_sdk 4.9.1 README), so for now every user gets English. It returns a sealed
+   `VerificationResult`:
    - `VerificationCompleted` → the **"Checking…" screen** (step 4). Its `session.status` is
      ignored — the backend decides (hard rule 5);
    - `VerificationCancelled` → back to home (the session can be resumed via "Continue verification");
@@ -189,8 +199,18 @@ package version actually installed.
   `VerificationCompleted` (`session.status`: approved / pending / declined),
   `VerificationCancelled`, `VerificationFailed` (`error.type`, `error.message`).
 - Minimum Android API 23, Java 17.
-- **Disable NFC**: `diditSdkAndroidNfcEnabled=false` in `android/gradle.properties`. Our workflow
-  doesn't read ID chips. (The extra `pickFirsts` packaging rule is only needed with NFC on.)
+- **No NFC:** `diditSdkAndroidVariant=autodetection` in `android/gradle.properties` (automatic
+  document capture, no NFC; our workflow doesn't read ID chips; no `pickFirsts` rule needed).
+  didit_sdk 4.9.1's Android build reads **only** `diditSdkAndroidVariant` (`all` by default, which
+  includes NFC). Didit's Flutter docs page still mentions `diditSdkAndroidNfcEnabled`, but no code in
+  4.9.1 reads it: setting it would silently ship the NFC variant.
+- **App size with `autodetection`** (release, 2026-11-01): **42.4 MB** for an arm64 phone
+  (`flutter build apk --release --split-per-abi`; 36.3 MB for 32-bit ARM; 97 MB for the APK with
+  all three CPU types). Of the arm64 size, roughly **18–20 MB is Didit**: 10.4 MB MediaPipe (the
+  automatic capture), most of the 6.3 MB of Android resources (Didit's 54 languages), part of the
+  3.5 MB of Java/Kotlin code, ~1.2 MB of instruction videos. The `core` variant (manual capture)
+  would save about 10 MB. The Play Store ships per-device builds from an App Bundle, so users
+  download roughly the per-CPU size (less after the store's compression).
 - The SDK requests camera permission itself at runtime.
 - iOS (later, needs a Mac): camera, microphone and photo-library usage descriptions in
   `Info.plist`, or the app crashes when the camera opens.
@@ -225,6 +245,11 @@ package version actually installed.
 
 - **Android SMS autofill** (with a real SMS provider): the SMS User Consent API needs no SMS text
   change; the SMS Retriever API needs the app hash in the message (a `rental-api` change).
+- **Didit's language:** Didit's verification UI supports neither Amharic (`am`) nor Afaan Oromo
+  (`om`) (54 languages, checked 2026-11-01), so every user currently sees it in English. Re-check
+  Didit's "Supported languages" page when the app gets its own Amharic/Afaan Oromo text, and add the
+  codes to `diditSupportedLanguages` (`lib/features/verification/data/verification_sdk.dart`) once
+  Didit supports them; consider asking Didit for them.
 - **Ethiopian clock:** when Amharic is added, consider showing times (e.g. "try again after …")
   on the Ethiopian clock (12-hour, the day starting at 6:00 — 7:00 international is 1:00).
 - **Browser fallback:** opening `verificationUrl` in the browser if the SDK can't be used.

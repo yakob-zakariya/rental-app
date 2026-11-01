@@ -297,5 +297,73 @@
   "homeRefreshFailedOffline": "Couldn't refresh. Check your connection.",
   "@homeRefreshFailedOffline": {
     "description": "SnackBar when reloading the status fails for lack of connection; the last status stays on screen."
+  },
+  "consentTitle": "Before you start",
+  "@consentTitle": {
+    "description": "Title of the consent screen shown before a new verification."
+  },
+  "consentHeadline": "We'll check your ID and a selfie",
+  "@consentHeadline": {
+    "description": "Headline of the consent screen."
+  },
+  "consentBody": "Your ID and selfie are checked by our verification partner, Didit. We don't store the photos. We keep your verified name, date of birth and a protected one-way reference to your ID number, used only to prevent duplicate and banned accounts.",
+  "@consentBody": {
+    "description": "Consent text. Must stay exactly true to what rental-api stores; legal review before launch."
+  },
+  "consentContinue": "Continue",
+  "@consentContinue": {
+    "description": "Starts the verification after reading the consent text."
+  },
+  "consentStarting": "Starting verification…",
+  "@consentStarting": {
+    "description": "Screen-reader label of the spinner while the session starts."
+  },
+  "verifyFailedMessage": "Verification couldn't continue. Please try again.",
+  "@verifyFailedMessage": {
+    "description": "Shown when the Didit flow failed."
+  },
+  "verifyProviderUnavailable": "Verification is unavailable right now. Please try again shortly.",
+  "@verifyProviderUnavailable": {
+    "description": "VERIFICATION_PROVIDER_UNAVAILABLE."
+  },
+  "verifyBusy": "Please wait…",
+  "@verifyBusy": {
+    "description": "Screen-reader label of a button's spinner on the status card."
+  },
+  "checkingTitle": "Verification",
+  "@checkingTitle": {
+    "description": "App-bar title of the checking screen."
+  },
+  "checkingLeaveHint": "This can take a few minutes. You can leave this screen; Home will update when you come back.",
+  "@checkingLeaveHint": {
+    "description": "Shown on the checking screen after the first minute."
+  },
+  "checkingOfflineHint": "No connection. We'll keep checking.",
+  "@checkingOfflineHint": {
+    "description": "Shown on the checking screen when a poll fails for lack of connection."
+  },
+  "checkingErrorHint": "Something went wrong. We'll keep checking.",
+  "@checkingErrorHint": {
+    "description": "Shown on the checking screen when a poll fails for another reason."
+  },
+  "checkingBackHome": "Back to home",
+  "@checkingBackHome": {
+    "description": "Leaves the checking screen."
+  },
+  "manualReviewDialogTitle": "Request a manual review?",
+  "@manualReviewDialogTitle": {
+    "description": "Title of the manual-review confirmation dialog."
+  },
+  "manualReviewDialogBody": "Our team will look at your verification by hand. You'll see the result here.",
+  "@manualReviewDialogBody": {
+    "description": "Body of the manual-review confirmation dialog."
+  },
+  "manualReviewDialogCancel": "Cancel",
+  "@manualReviewDialogCancel": {
+    "description": "Closes the manual-review dialog without requesting."
+  },
+  "manualReviewDialogConfirm": "Request review",
+  "@manualReviewDialogConfirm": {
+    "description": "Confirms the manual review request."
   }
 }
