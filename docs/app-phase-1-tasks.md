@@ -89,7 +89,8 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
 
 ## Real world
 
-- [ ] **A12 Phone through the tunnel, wireless (sandbox).** Unplug the USB cable and run with
+- [x] **A12 Phone through the tunnel, wireless (sandbox).** (Done 2026-11-01; notes in
+      `docs/a12-real-phone-notes.md`.) Unplug the USB cable and run with
       `--dart-define=API_BASE_URL=https://<tunnel-domain>` (HTTPS, the ngrok header, a real mobile
       network). Full flow with the sandbox.
       Note anything awkward on a real phone (keyboard covering fields, slow network, small screen).

@@ -256,6 +256,9 @@ package version actually installed.
   Didit's "Supported languages" page when the app gets its own Amharic/Afaan Oromoo text, and add the
   codes to `diditSupportedLanguages` (`lib/features/verification/data/verification_sdk.dart`) once
   Didit supports them; consider asking Didit for them.
+- **`didit_sdk` and Built-in Kotlin:** didit_sdk 4.9.1 still applies the Kotlin Gradle plugin;
+  Flutter warns that future versions will refuse such plugins. Before upgrading Flutter, check that
+  Didit has shipped a version that supports Built-in Kotlin (see `docs/a12-real-phone-notes.md`).
 - **Ethiopian clock:** when Amharic is added, consider showing times (e.g. "try again after …")
   on the Ethiopian clock (12-hour, the day starting at 6:00 — 7:00 international is 1:00).
 - **Browser fallback:** opening `verificationUrl` in the browser if the SDK can't be used.

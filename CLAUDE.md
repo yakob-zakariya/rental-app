@@ -122,8 +122,9 @@ adb reverse tcp:3000 tcp:3000       # re-run after every reconnect
 flutter run -d <phone-ip>:<port> --dart-define=API_BASE_URL=http://localhost:3000
                                     # (-d picks the phone if adb lists it more than once)
 # Or reach the backend through the ngrok tunnel instead of adb reverse (HTTPS, the real network
-# path — task A12). adb (USB or wireless) is still needed to install and run the app.
-flutter run --dart-define=API_BASE_URL=https://<tunnel-domain>
+# path — task A12). No adb reverse needed; adb is only needed to install. With localhost the
+# app needs the cable plugged in; with the tunnel URL you can unplug once it has started:
+flutter run --release --dart-define=API_BASE_URL=https://<tunnel-domain>
                                     # (without API_BASE_URL the app shows a "Configuration error" screen)
                                     # Didit webhooks always reach the backend through the ngrok tunnel,
                                     # so keep it running during verification tests, even with adb reverse.
