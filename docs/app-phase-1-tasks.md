@@ -10,21 +10,21 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
 
 ## Setup (you do this, with Claude Code's help if stuck)
 
-- [ ] **A0 Toolchain.** Install Flutter (stable) and Android Studio on Ubuntu; enable USB debugging
+- [x] **A0 Toolchain.** Install Flutter (stable) and Android Studio on Ubuntu; enable USB debugging
       on your Android phone. (No emulator: it crashes the dev PC. All testing is on the phone.)
       *Done when:* `flutter doctor` shows no errors for Flutter, Android toolchain and Android Studio,
       `flutter --version` shows Dart 3.11+, and the default counter app runs on your phone over USB.
 
 ## Foundation
 
-- [ ] **A1 Project + structure.** `flutter create --org com.yakobzakariya --project-name rental_app .`
+- [x] **A1 Project + structure.** `flutter create --org com.yakobzakariya --project-name rental_app .`
       (in this repo), folder layout from `CLAUDE.md`, strict lints (`flutter_lints` + a few extra
       rules), `API_BASE_URL` config via `--dart-define` with a clear error if missing, a
       **debug-only** Android network security config allowing cleartext to `localhost` only
       (release stays HTTPS-only), `.gitignore`.
       *Done when:* the app starts showing "Hello" with the configured base URL in debug, and
       `flutter analyze` is clean.
-- [ ] **A2 App shell.** Material 3 light + dark themes (Design section in `CLAUDE.md`: seed
+- [x] **A2 App shell.** Material 3 light + dark themes (Design section in `CLAUDE.md`: seed
       `#0B6E69`, bundled Noto Sans + Noto Sans Ethiopic with their OFL licences, 16 px cards,
       48/52 px tap targets), `gen-l10n` with `app_en.arb`, `go_router` with placeholder sign-in and
       home screens, Riverpod `ProviderScope`.
@@ -34,14 +34,14 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
 
 ## API layer
 
-- [ ] **A3 API client + errors.** `dio` instance, `ApiError` model, mapping of every error code in
+- [x] **A3 API client + errors.** `dio` instance, `ApiError` model, mapping of every error code in
       the contract (including `retryAfterSeconds` and `NETWORK_ERROR`), unknown codes handled
       without crashing, the ngrok header sent only when the base URL's host ends in
       `.ngrok-free.dev` or `.ngrok-free.app`. Unit tests with a mocked adapter.
       *Done when:* tests cover success, an error body with a code, an unknown code, a 429 with
       Retry-After, a timeout, and the ngrok host rule.
-- [ ] **A4 Token storage.** Secure-storage wrapper (read, write both tokens, clear). Unit tests.
-- [ ] **A5 Auth interceptor + refresh.** Bearer header on protected routes only, single-flight
+- [x] **A4 Token storage.** Secure-storage wrapper (read, write both tokens, clear). Unit tests.
+- [x] **A5 Auth interceptor + refresh.** Bearer header on protected routes only, single-flight
       refresh on `ACCESS_TOKEN_EXPIRED`, retry once, sign-out **only** on `INVALID_REFRESH_TOKEN`
       or a non-expiry 401, `ACCOUNT_UNAVAILABLE` → unavailable state. A network error or timeout
       during refresh **never** signs out: tokens are kept and the requests fail with `NETWORK_ERROR`.
@@ -51,13 +51,13 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
 
 ## Sign-in
 
-- [ ] **A6 Phone entry screen.** Field, loading state, error messages per code. Widget tests.
-- [ ] **A7 OTP screen + sign-in.** 6-digit input, countdown, resend, verify with `deviceName` from
+- [x] **A6 Phone entry screen.** Field, loading state, error messages per code. Widget tests.
+- [x] **A7 OTP screen + sign-in.** 6-digit input, countdown, resend, verify with `deviceName` from
       `device_info_plus` (phone model), store tokens, go home. Widget tests.
       *Done when:* you sign in on your phone over USB against your local backend
       (`adb reverse tcp:3000 tcp:3000`, `API_BASE_URL=http://localhost:3000`; code from the
       backend console).
-- [ ] **A8 Startup routing + sign-out.** Auth states `checking` / `signedOut` / `signedIn` /
+- [x] **A8 Startup routing + sign-out.** Auth states `checking` / `signedOut` / `signedIn` /
       `accountUnavailable`, splash logic from spec 3.1 (including the "Can't connect — Retry" state,
       which never signs out), router redirect, account-unavailable screen with "Back to sign in",
       sign-out in the home screen's app-bar menu.
@@ -68,14 +68,14 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
 
 ## Verification
 
-- [ ] **A9 Home + status cards.** `GET /verification/status` + `GET /me`, one card per status
+- [x] **A9 Home + status cards.** `GET /verification/status` + `GET /me`, one card per status
       (declined: "Try again" and "Request manual review" shown independently from `canRetry` /
       `canRequestManualReview`; when `canRetry` is false, "You can try again after HH:mm" (or "…tomorrow
       after HH:mm") from `retryAvailableAt` in Africa/Addis_Ababa time, or "Try again later" if it is `null`; re-fetch
       the status once that time passes),
       fallback text for unknown status / `reasonCode`, pull-to-refresh, refresh on app foreground.
       Widget tests for every status, the unknown values, and the declined-card combinations.
-- [ ] **A10 Didit SDK + verification flow.** Add `didit_sdk` (`diditSdkAndroidVariant=autodetection`:
+- [x] **A10 Didit SDK + verification flow.** Add `didit_sdk` (`diditSdkAndroidVariant=autodetection`:
       no NFC; confirm the API against the installed version; report the release APK size), consent screen (before new sessions only, exact text from spec 3.5),
       start session (all errors), launch the SDK, handle each result (completed → "Checking…",
       cancelled → home, failed → home with message), "Checking…" polling screen (5 s for the first
@@ -84,7 +84,7 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
       *Done when:* on your phone over USB with the **sandbox** backend, you complete a flow and the
       home screen shows the result. Keep the ngrok tunnel running: Didit's webhooks reach the
       backend through it (without it, only the 5-minute polling job delivers the decision).
-- [ ] **A11 Profile / settings.** Phone, status, verified name/DOB (read-only, DOB exactly as
+- [x] **A11 Profile / settings.** Phone, status, verified name/DOB (read-only, DOB exactly as
       received), language choice via `PATCH /me`, sign-out.
 
 ## Real world
@@ -94,7 +94,8 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
       `--dart-define=API_BASE_URL=https://<tunnel-domain>` (HTTPS, the ngrok header, a real mobile
       network). Full flow with the sandbox.
       Note anything awkward on a real phone (keyboard covering fields, slow network, small screen).
-- [ ] **A13 Live Didit test with your real Fayda card** (the backend's T2.9). Set up the live Didit
+- [x] **A13 Live Didit test with your real Fayda card** (the backend's T2.9). (Done 2026-11-01;
+      findings in spec §6 and `rental-api/docs/didit-integration.md`.) Set up the live Didit
       app first in `rental-api` (workflow restricted like the sandbox, webhook destination, live keys
       in the backend's `.env`, `DIDIT_ENVIRONMENT=live`). Use a fresh phone number. Record the
       findings from spec §6 in `rental-api/docs/didit-integration.md`, then verify a second account
@@ -110,6 +111,9 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
 - Legal review of the consent text before launch.
 
 ## App Phase 1 is done when
+
+**App Phase 1 is done (2026-11-01):** every box is ticked, and the developer verified himself with
+his real Fayda card through the live Didit app. (The last point below is his own.)
 
 - Every box above is ticked.
 - You verified yourself on your own phone with your real Fayda card through the live Didit app.

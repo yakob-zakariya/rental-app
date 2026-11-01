@@ -137,7 +137,7 @@ class _Profile extends StatelessWidget {
             if (approved && me.fullName != null)
               _Field(label: l10n.settingsVerifiedName, value: me.fullName!),
             if (approved && me.dateOfBirth != null)
-              // Exactly as received (YYYY-MM-DD) until A13 confirms the calendar.
+              // Exactly as received: YYYY-MM-DD, Gregorian (confirmed in A13).
               _Field(label: l10n.settingsDateOfBirth, value: me.dateOfBirth!),
           ],
         ),

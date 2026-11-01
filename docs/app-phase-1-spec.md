@@ -179,8 +179,10 @@ report the mismatch so this spec gets fixed.
 - Opened from the home app-bar menu ("Settings", `/settings`).
 - Shows phone, verification status, and — once approved — the verified name and date of birth
   (read-only). The phone is grouped for display only: `+251911234567` → `+251 911 234 567` (3-3-3
-  after the country code, like `09XX XXX XXX`); anything else is shown as received. The date of birth is shown **exactly as received** (`YYYY-MM-DD` string) until A13
-  confirms which calendar Didit returns.
+  after the country code, like `09XX XXX XXX`); anything else is shown as received.
+- The date of birth is shown **exactly as received**, a `YYYY-MM-DD` string in the **Gregorian**
+  calendar (confirmed in A13 with a real Fayda card: Didit returns Gregorian, and the value in
+  Settings matched the real birthday). No conversion, and never parsed into a `DateTime`.
 - Language: each in its own name — "አማርኛ" (`am`) / "Afaan Oromoo" (`om`) / "English" (`en`), the
   same in every translation → `PATCH /me { preferredLanguage }`. In Phase 1 the app's own text
   stays English; the choice is saved for later (and picks Didit's language when Didit supports it,
@@ -246,6 +248,19 @@ package version actually installed.
   FAN 16 digits?); the date-of-birth format and calendar; whether the paper and digital Fayda work.
   The backend repo has (or will have) a script that prints only the *shape* of the decision.
 - A second account verified with the same card must end up `blocked` (neutral screen).
+
+### Findings (A13, live Didit, 2026-11-01 — full record in `rental-api/docs/didit-integration.md`)
+
+- **Physical Fayda card:** approved; Didit read it as an Ethiopian ID card.
+- **Second account with the same card:** `blocked`; the app showed only the neutral "Please contact
+  support." card.
+- **ID numbers:** only the **FAN (16 digits)** came back, no FIN. Handled in the backend; no app
+  change.
+- **Date of birth:** `YYYY-MM-DD`, **Gregorian**; it matched the real birthday in Settings. No app
+  change (§3.7).
+- **Not tested yet** (each is a billed live session; on the backend's pre-launch checklist): the
+  printed paper Fayda and the digital Fayda (both should be accepted), and documents that should
+  be rejected (kebele ID, driving licence).
 
 ## 7. Later (not Phase 1)
 
