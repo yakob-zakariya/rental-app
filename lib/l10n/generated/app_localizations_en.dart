@@ -144,8 +144,102 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeSignOut => 'Sign out';
 
   @override
-  String get homeSignedInPlaceholder => 'You\'re signed in.';
+  String get accountUnavailableBackToSignIn => 'Back to sign in';
 
   @override
-  String get accountUnavailableBackToSignIn => 'Back to sign in';
+  String get commonRetry => 'Retry';
+
+  @override
+  String get homeLoadingStatus => 'Loading your verification status…';
+
+  @override
+  String get verifyNotVerifiedTitle => 'Verify your identity';
+
+  @override
+  String get verifyNotVerifiedBody =>
+      'Everyone here is verified, so landlords and tenants know who they\'re dealing with: no brokers, no fake accounts. It takes a few minutes with your Fayda ID card or passport.';
+
+  @override
+  String get verifyNotVerifiedButton => 'Verify my identity';
+
+  @override
+  String get verifyPendingTitle => 'Checking your verification…';
+
+  @override
+  String get verifyPendingBody => 'This usually takes a few minutes.';
+
+  @override
+  String get verifyContinueButton => 'Continue verification';
+
+  @override
+  String get verifyApprovedTitle => 'Verified';
+
+  @override
+  String get verifyApprovedBody => 'Your identity is verified.';
+
+  @override
+  String get verifyDeclinedTitle => 'We couldn\'t verify your identity';
+
+  @override
+  String get verifyTryAgainButton => 'Try again';
+
+  @override
+  String get verifyTryAgainLater => 'You can try again later.';
+
+  @override
+  String get verifyManualReviewButton => 'Request manual review';
+
+  @override
+  String get verifyManualReviewTitle =>
+      'Our team is reviewing your verification';
+
+  @override
+  String get verifyManualReviewBody => 'Check back here later.';
+
+  @override
+  String get verifyBlockedBody => 'Please contact support.';
+
+  @override
+  String get verifyUnknownBody =>
+      'We can\'t show your verification status right now.';
+
+  @override
+  String get reasonPhotoUnclear =>
+      'The photo wasn\'t clear enough. Retake it in good light.';
+
+  @override
+  String get reasonDocumentExpired => 'Your document has expired.';
+
+  @override
+  String get reasonDocumentNotAccepted =>
+      'Use your Fayda ID card or a passport.';
+
+  @override
+  String get reasonUnderage => 'You must be 18 or older.';
+
+  @override
+  String get reasonDocumentNotVerified =>
+      'We couldn\'t verify your document. Please try again.';
+
+  @override
+  String get reasonFallback => 'Something didn\'t match. Please try again.';
+
+  @override
+  String verifyApprovedAs(String name) {
+    return 'Verified as $name';
+  }
+
+  @override
+  String verifyRetryAfter(String time) {
+    return 'You can try again after $time.';
+  }
+
+  @override
+  String verifyRetryTomorrowAfter(String time) {
+    return 'You can try again tomorrow after $time.';
+  }
+
+  @override
+  String get homeRefreshFailedOffline =>
+      'Couldn\'t refresh. Check your connection.';
 }

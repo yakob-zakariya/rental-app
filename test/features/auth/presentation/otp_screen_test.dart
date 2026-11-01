@@ -12,12 +12,26 @@ import 'package:rental_app/core/storage/auth_tokens.dart';
 import 'package:rental_app/core/storage/storage_providers.dart';
 import 'package:rental_app/core/storage/token_storage.dart';
 import 'package:rental_app/features/auth/data/auth_repository.dart';
+import 'package:rental_app/features/verification/data/verification_repository.dart';
+import 'package:rental_app/features/verification/data/verification_status.dart';
 import 'package:rental_app/features/auth/presentation/otp_screen.dart';
 import 'package:rental_app/l10n/generated/app_localizations_en.dart';
 
 import '../../../helpers/pump_app.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
+
+/// Home loads the verification status; these tests only need a quiet answer.
+class FakeVerificationRepository extends Fake
+    implements VerificationRepository {
+  @override
+  Future<VerificationSummary> getStatus() async => const VerificationSummary(
+    status: VerificationStatus.notVerified,
+    canRetry: true,
+    retriesLeftToday: 3,
+    canRequestManualReview: false,
+  );
+}
 
 const _phone = '0911 234 567';
 const _tokens = AuthTokens(
@@ -46,6 +60,9 @@ void main() {
       brightness: brightnessVariant.currentValue ?? Brightness.light,
       overrides: [
         authRepositoryProvider.overrideWithValue(auth),
+        verificationRepositoryProvider.overrideWithValue(
+          FakeVerificationRepository(),
+        ),
         tokenStorageProvider.overrideWithValue(tokens),
         deviceNameProvider.overrideWith((ref) async => 'Samsung SM-M156B'),
       ],

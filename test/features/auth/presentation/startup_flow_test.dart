@@ -8,11 +8,25 @@ import 'package:rental_app/core/api/api_error.dart';
 import 'package:rental_app/core/api/session_events.dart';
 import 'package:rental_app/core/storage/auth_tokens.dart';
 import 'package:rental_app/features/auth/data/auth_repository.dart';
+import 'package:rental_app/features/verification/data/verification_repository.dart';
+import 'package:rental_app/features/verification/data/verification_status.dart';
 import 'package:rental_app/l10n/generated/app_localizations_en.dart';
 
 import '../../../helpers/pump_app.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
+
+/// Home loads the verification status; these tests only need a quiet answer.
+class FakeVerificationRepository extends Fake
+    implements VerificationRepository {
+  @override
+  Future<VerificationSummary> getStatus() async => const VerificationSummary(
+    status: VerificationStatus.notVerified,
+    canRetry: true,
+    retriesLeftToday: 3,
+    canRequestManualReview: false,
+  );
+}
 
 const _tokens = AuthTokens(accessToken: 'access-1', refreshToken: 'refresh-1');
 
@@ -32,7 +46,12 @@ void main() {
     brightness: brightnessVariant.currentValue!,
     storedTokens: storedTokens,
     settle: settle,
-    overrides: [authRepositoryProvider.overrideWithValue(auth)],
+    overrides: [
+      authRepositoryProvider.overrideWithValue(auth),
+      verificationRepositoryProvider.overrideWithValue(
+        FakeVerificationRepository(),
+      ),
+    ],
   );
 
   testWidgets('without tokens: phone entry', (tester) async {

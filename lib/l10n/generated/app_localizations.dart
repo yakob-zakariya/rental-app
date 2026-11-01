@@ -310,17 +310,179 @@ abstract class AppLocalizations {
   /// **'Sign out'**
   String get homeSignOut;
 
-  /// Placeholder on the home screen until the verification cards (A9).
-  ///
-  /// In en, this message translates to:
-  /// **'You\'re signed in.'**
-  String get homeSignedInPlaceholder;
-
   /// Only button on the account-unavailable screen.
   ///
   /// In en, this message translates to:
   /// **'Back to sign in'**
   String get accountUnavailableBackToSignIn;
+
+  /// Button that tries loading again after an error.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get commonRetry;
+
+  /// Screen-reader label of the spinner while the status loads.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading your verification status…'**
+  String get homeLoadingStatus;
+
+  /// Card title when the user hasn't verified yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your identity'**
+  String get verifyNotVerifiedTitle;
+
+  /// Why we verify (card body for not_verified).
+  ///
+  /// In en, this message translates to:
+  /// **'Everyone here is verified, so landlords and tenants know who they\'re dealing with: no brokers, no fake accounts. It takes a few minutes with your Fayda ID card or passport.'**
+  String get verifyNotVerifiedBody;
+
+  /// Starts identity verification.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify my identity'**
+  String get verifyNotVerifiedButton;
+
+  /// Card title while the verification result is pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking your verification…'**
+  String get verifyPendingTitle;
+
+  /// Card body for pending.
+  ///
+  /// In en, this message translates to:
+  /// **'This usually takes a few minutes.'**
+  String get verifyPendingBody;
+
+  /// Resumes an unfinished verification session.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue verification'**
+  String get verifyContinueButton;
+
+  /// Badge/title when the identity is verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get verifyApprovedTitle;
+
+  /// Card body for approved when the name isn't loaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Your identity is verified.'**
+  String get verifyApprovedBody;
+
+  /// Card title for declined.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t verify your identity'**
+  String get verifyDeclinedTitle;
+
+  /// Starts a new verification after a decline.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get verifyTryAgainButton;
+
+  /// Declined and out of tries, with no known time.
+  ///
+  /// In en, this message translates to:
+  /// **'You can try again later.'**
+  String get verifyTryAgainLater;
+
+  /// Asks the team to review the declined verification by hand.
+  ///
+  /// In en, this message translates to:
+  /// **'Request manual review'**
+  String get verifyManualReviewButton;
+
+  /// Card title for manual_review.
+  ///
+  /// In en, this message translates to:
+  /// **'Our team is reviewing your verification'**
+  String get verifyManualReviewTitle;
+
+  /// Card body for manual_review.
+  ///
+  /// In en, this message translates to:
+  /// **'Check back here later.'**
+  String get verifyManualReviewBody;
+
+  /// The only text for a blocked user. Never give a reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Please contact support.'**
+  String get verifyBlockedBody;
+
+  /// Fallback for a status this app version doesn't know.
+  ///
+  /// In en, this message translates to:
+  /// **'We can\'t show your verification status right now.'**
+  String get verifyUnknownBody;
+
+  /// Decline reason PHOTO_UNCLEAR.
+  ///
+  /// In en, this message translates to:
+  /// **'The photo wasn\'t clear enough. Retake it in good light.'**
+  String get reasonPhotoUnclear;
+
+  /// Decline reason DOCUMENT_EXPIRED.
+  ///
+  /// In en, this message translates to:
+  /// **'Your document has expired.'**
+  String get reasonDocumentExpired;
+
+  /// Decline reason DOCUMENT_NOT_ACCEPTED.
+  ///
+  /// In en, this message translates to:
+  /// **'Use your Fayda ID card or a passport.'**
+  String get reasonDocumentNotAccepted;
+
+  /// Decline reason UNDERAGE.
+  ///
+  /// In en, this message translates to:
+  /// **'You must be 18 or older.'**
+  String get reasonUnderage;
+
+  /// Decline reason DOCUMENT_NOT_VERIFIED.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t verify your document. Please try again.'**
+  String get reasonDocumentNotVerified;
+
+  /// Fallback for a decline reason this app version doesn't know.
+  ///
+  /// In en, this message translates to:
+  /// **'Something didn\'t match. Please try again.'**
+  String get reasonFallback;
+
+  /// Approved card body with the verified name from GET /me.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified as {name}'**
+  String verifyApprovedAs(String name);
+
+  /// Declined and out of tries; {time} is today, 24-hour Addis Ababa time.
+  ///
+  /// In en, this message translates to:
+  /// **'You can try again after {time}.'**
+  String verifyRetryAfter(String time);
+
+  /// Declined and out of tries; {time} is tomorrow, 24-hour Addis Ababa time.
+  ///
+  /// In en, this message translates to:
+  /// **'You can try again tomorrow after {time}.'**
+  String verifyRetryTomorrowAfter(String time);
+
+  /// SnackBar when reloading the status fails for lack of connection; the last status stays on screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t refresh. Check your connection.'**
+  String get homeRefreshFailedOffline;
 }
 
 class _AppLocalizationsDelegate

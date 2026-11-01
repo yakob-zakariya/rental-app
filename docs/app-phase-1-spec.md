@@ -103,6 +103,10 @@ report the mismatch so this spec gets fixed.
 - Shows the verification state from `GET /verification/status` (and `GET /me` for the verified
   name), refreshed when the screen opens, on pull-to-refresh, and **when the app returns to the
   foreground**.
+- If the **first** load fails: a full error state ("No connection…" or the generic text) with
+  **Retry**. If a **reload** fails (pull-to-refresh, foreground, retry time) while a status is
+  already shown: keep the last card and show a SnackBar, "Couldn't refresh. Check your
+  connection." (or the generic text for non-network errors).
 - One card per status:
   - `not_verified` → explanation of why we verify + "Verify my identity" button;
   - `pending` → "Checking your verification…" + a "Continue verification" button if `canRetry`
@@ -110,7 +114,8 @@ report the mismatch so this spec gets fixed.
   - `approved` → verified badge with the verified name (from `GET /me`);
   - `declined` → message for `reasonCode`, then — independently, both can appear:
     - "Try again" if `canRetry`. If `canRetry` is false: "You can try again after HH:mm" when
-      `retryAvailableAt` is set (the timestamp shown in Africa/Addis_Ababa time, 24-hour), or
+      `retryAvailableAt` is set (the timestamp shown in Africa/Addis_Ababa time, 24-hour; "You can
+      try again tomorrow after HH:mm" when that time isn't today in Addis Ababa), or
       "Try again later" when it is `null`. When that moment passes, re-fetch the status — never
       assume `canRetry` changed (hard rule 7);
     - "Request manual review" if `canRequestManualReview`.

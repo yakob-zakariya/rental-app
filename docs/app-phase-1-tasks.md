@@ -70,8 +70,8 @@ If `docs/app-phase-1-spec.md` and `docs/api-for-mobile.md` disagree, `api-for-mo
 
 - [ ] **A9 Home + status cards.** `GET /verification/status` + `GET /me`, one card per status
       (declined: "Try again" and "Request manual review" shown independently from `canRetry` /
-      `canRequestManualReview`; when `canRetry` is false, "You can try again after HH:mm" from
-      `retryAvailableAt` in Africa/Addis_Ababa time, or "Try again later" if it is `null`; re-fetch
+      `canRequestManualReview`; when `canRetry` is false, "You can try again after HH:mm" (or "…tomorrow
+      after HH:mm") from `retryAvailableAt` in Africa/Addis_Ababa time, or "Try again later" if it is `null`; re-fetch
       the status once that time passes),
       fallback text for unknown status / `reasonCode`, pull-to-refresh, refresh on app foreground.
       Widget tests for every status, the unknown values, and the declined-card combinations.

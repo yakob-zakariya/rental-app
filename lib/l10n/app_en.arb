@@ -165,12 +165,137 @@
   "@homeSignOut": {
     "description": "Menu item that signs the user out."
   },
-  "homeSignedInPlaceholder": "You're signed in.",
-  "@homeSignedInPlaceholder": {
-    "description": "Placeholder on the home screen until the verification cards (A9)."
-  },
   "accountUnavailableBackToSignIn": "Back to sign in",
   "@accountUnavailableBackToSignIn": {
     "description": "Only button on the account-unavailable screen."
+  },
+  "commonRetry": "Retry",
+  "@commonRetry": {
+    "description": "Button that tries loading again after an error."
+  },
+  "homeLoadingStatus": "Loading your verification status…",
+  "@homeLoadingStatus": {
+    "description": "Screen-reader label of the spinner while the status loads."
+  },
+  "verifyNotVerifiedTitle": "Verify your identity",
+  "@verifyNotVerifiedTitle": {
+    "description": "Card title when the user hasn't verified yet."
+  },
+  "verifyNotVerifiedBody": "Everyone here is verified, so landlords and tenants know who they're dealing with: no brokers, no fake accounts. It takes a few minutes with your Fayda ID card or passport.",
+  "@verifyNotVerifiedBody": {
+    "description": "Why we verify (card body for not_verified)."
+  },
+  "verifyNotVerifiedButton": "Verify my identity",
+  "@verifyNotVerifiedButton": {
+    "description": "Starts identity verification."
+  },
+  "verifyPendingTitle": "Checking your verification…",
+  "@verifyPendingTitle": {
+    "description": "Card title while the verification result is pending."
+  },
+  "verifyPendingBody": "This usually takes a few minutes.",
+  "@verifyPendingBody": {
+    "description": "Card body for pending."
+  },
+  "verifyContinueButton": "Continue verification",
+  "@verifyContinueButton": {
+    "description": "Resumes an unfinished verification session."
+  },
+  "verifyApprovedTitle": "Verified",
+  "@verifyApprovedTitle": {
+    "description": "Badge/title when the identity is verified."
+  },
+  "verifyApprovedBody": "Your identity is verified.",
+  "@verifyApprovedBody": {
+    "description": "Card body for approved when the name isn't loaded."
+  },
+  "verifyDeclinedTitle": "We couldn't verify your identity",
+  "@verifyDeclinedTitle": {
+    "description": "Card title for declined."
+  },
+  "verifyTryAgainButton": "Try again",
+  "@verifyTryAgainButton": {
+    "description": "Starts a new verification after a decline."
+  },
+  "verifyTryAgainLater": "You can try again later.",
+  "@verifyTryAgainLater": {
+    "description": "Declined and out of tries, with no known time."
+  },
+  "verifyManualReviewButton": "Request manual review",
+  "@verifyManualReviewButton": {
+    "description": "Asks the team to review the declined verification by hand."
+  },
+  "verifyManualReviewTitle": "Our team is reviewing your verification",
+  "@verifyManualReviewTitle": {
+    "description": "Card title for manual_review."
+  },
+  "verifyManualReviewBody": "Check back here later.",
+  "@verifyManualReviewBody": {
+    "description": "Card body for manual_review."
+  },
+  "verifyBlockedBody": "Please contact support.",
+  "@verifyBlockedBody": {
+    "description": "The only text for a blocked user. Never give a reason."
+  },
+  "verifyUnknownBody": "We can't show your verification status right now.",
+  "@verifyUnknownBody": {
+    "description": "Fallback for a status this app version doesn't know."
+  },
+  "reasonPhotoUnclear": "The photo wasn't clear enough. Retake it in good light.",
+  "@reasonPhotoUnclear": {
+    "description": "Decline reason PHOTO_UNCLEAR."
+  },
+  "reasonDocumentExpired": "Your document has expired.",
+  "@reasonDocumentExpired": {
+    "description": "Decline reason DOCUMENT_EXPIRED."
+  },
+  "reasonDocumentNotAccepted": "Use your Fayda ID card or a passport.",
+  "@reasonDocumentNotAccepted": {
+    "description": "Decline reason DOCUMENT_NOT_ACCEPTED."
+  },
+  "reasonUnderage": "You must be 18 or older.",
+  "@reasonUnderage": {
+    "description": "Decline reason UNDERAGE."
+  },
+  "reasonDocumentNotVerified": "We couldn't verify your document. Please try again.",
+  "@reasonDocumentNotVerified": {
+    "description": "Decline reason DOCUMENT_NOT_VERIFIED."
+  },
+  "reasonFallback": "Something didn't match. Please try again.",
+  "@reasonFallback": {
+    "description": "Fallback for a decline reason this app version doesn't know."
+  },
+  "verifyApprovedAs": "Verified as {name}",
+  "@verifyApprovedAs": {
+    "description": "Approved card body with the verified name from GET /me.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "verifyRetryAfter": "You can try again after {time}.",
+  "@verifyRetryAfter": {
+    "description": "Declined and out of tries; {time} is today, 24-hour Addis Ababa time.",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "14:30"
+      }
+    }
+  },
+  "verifyRetryTomorrowAfter": "You can try again tomorrow after {time}.",
+  "@verifyRetryTomorrowAfter": {
+    "description": "Declined and out of tries; {time} is tomorrow, 24-hour Addis Ababa time.",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "09:15"
+      }
+    }
+  },
+  "homeRefreshFailedOffline": "Couldn't refresh. Check your connection.",
+  "@homeRefreshFailedOffline": {
+    "description": "SnackBar when reloading the status fails for lack of connection; the last status stays on screen."
   }
 }
